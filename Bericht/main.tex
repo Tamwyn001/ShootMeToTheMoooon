@@ -1,0 +1,69 @@
+\documentclass[
+    oneside, 
+    footinclude=off, 
+    captions=tableheading, 
+    DIV=12;usenames,
+    dvipsnames
+]{scrartcl}
+
+% -----------------------------------------------------------
+% Pakete
+\usepackage{UniLaTeXPackage}
+
+\begin{document}
+
+% -----------------------------------------------------------
+% Deckblatteinrichtung
+    \title{Shoot me to the moon}
+    \subtitle{Computerphysik 1, Abschlussprojekt (Universität Konstanz)}
+    \author{Autoren: Arto Steffan, Tom Folgmann, David Jannack \\ \large{Tutor: x y}}
+    \date{Abgabe am xx.xx.20xx}
+    \maketitle
+    \pagenumbering{alph}
+    \thispagestyle{empty}
+    \section*{Einleitung}
+        \subfile{Sektionen/0-Einleitung.tex}
+
+    \newpage
+
+% -----------------------------------------------------------
+% Inhaltsvorbereitung
+
+    \tableofcontents
+    \thispagestyle{empty}	
+    \newpage
+    \setcounter{page}{1}
+    \pagenumbering{arabic}
+
+% -----------------------------------------------------------
+% Dokumentkern
+
+\newpage
+\section{Grundlagen}
+    \subfile{Sektionen/1-Grundlagenteil.tex}
+	
+
+\newpage
+\section{Code}
+    \subfile{Sektionen/2-Code.tex}
+
+\newpage
+\section{Auswertung}
+    \subfile{Sektionen/3-Auswertung.tex}
+
+\newpage
+\section{Fazit}
+    \subfile{Sektionen/4-Fazit.tex}
+
+% -----------------------------------------------------------
+% Abspann und Credits
+
+\newpage
+    \subfile{Sektionen/5-Literatur.tex}
+\newpage
+    \listoffigures
+    \listoftables
+
+
+%\includepdf[pages=1-1,scale=0.9,frame=true]{Protokolle/PATH.pdf}
+\end{document}
