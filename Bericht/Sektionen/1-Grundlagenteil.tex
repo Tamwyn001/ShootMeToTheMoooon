@@ -23,7 +23,7 @@
     \subsection*{Potentialbeschreibung}
         Für das \emph{Gravitationspotential} des Systems wählen wir zwei Newtonsche Potentiale an den jeweiligen Zentren des Mondes und der Erde. Allgemein schreiben wir:
         \[
-            V:\R\times\R^3\to \R,\qquad (t,q(t),q'(t))\mapsto G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i(t) - q(t)}{2}},
+            V:\R\times\R^3\to \R,\qquad (t,q(t),q'(t))\mapsto G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - q(t)}{2}},
         \]
         wobei wir in $Q$ die Orte der Erde (an Stelle $1$) und des Mondes (an Stelle $2$) sammeln und mit $m_S$ die Satellitenmasse bzw. mit $m:=(m_E,m_M)$ die Erd- bzw. Mondmasse bezeichnen:
         \[
@@ -32,28 +32,60 @@
         Wir lassen hier bewusst die Masse des Satelliten selbst aus, da wir sonst eine Singularität an jeder Stelle durch $1/\dabs{q(t)-q(t)}{2}$ erhielten. 
 
     \subsection*{Lagrange Funktion}
-        Damit haben wir dann die Lagrange Funktion in der Form 
+        Der Lagrangeformalismus beschreibt den Unterschied der \emph{kinetischen} zur \emph{potentiellen Energie} des Systems. Als kinetische Energie betrachten wir allgemein die Summe der einzelnen kinetischen Energien der beteiligten Körper als
         \[
-            L:\R\times\bigl(\R^3\bigr)^2\to\R,\qquad \bigl(t,(q(t),q'(t))\bigr)\mapsto\frac{q'(t)^2}{2m} - G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i(t) - q(t)}{2}}
+            T(t,(q(t),q'(t))) = \sum_{i\in[3]}\frac12\cdot m_i\cdot\dabs{(Q_i^*)'(t)}{2}^2 + \frac12\cdot m_S\cdot\dabs{q'(t)}{2}^2.
         \]
-
+        % -> Sind die Q(t) bzw. q(t) hier richtig implementiert?
+        Unter der Annahme ruhender Erde und Mondes können wir $T_0(t,(q(t),q'(t)))$ über $m_S\cdot \dabs{q'(t)}{2}^2 / 2$ beschreiben. Zusammen mit dem oben bereits bestimmten Potential $V$ erhalten wir durch die Form $L = T - V\circ\phi$ mit der Argumentauswahlfunktion $\phi:=\bigl((t,x_1)\bigr)_{(t,x)}$ den Lagrangian
+        \[
+            L:\R\times\bigl(\R^3\bigr)^2\to\R,\qquad \bigl(t,(q(t),q'(t))\bigr)\mapsto \frac12\cdot m_S\cdot\dabs{q'(t)}{^2} - G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - q(t)}{2}}.
+        \]
+        
 
     \subsection*{Legendre Transformation}
-
+        Um die Hamiltonfunktion aufstellen zu können, braucht es eine Transformation der Form $p(t):=\dv{b}L(t,(q(t),b))|_{b=q'(t)}$, sodaß wir durch 
+        \[
+            \dv{b}L(t,(q(t),b))|_{b=q'(t)} = \dv{b}\Biggl(
+                \frac12\cdot m_S\cdot\dabs{b}{2} - G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - q(t)}{2}}    
+            \Biggr)
+            = m_S\cdot q'(t)
+        \]
+        und Substitution $q'(t) = p(t) / m_S$ den Hamiltonian der Form 
+        \[
+            H(t,(q(t),p(t))) = \frac{p(t)^2}{2m_S} + V(t,q(t))
+        \]
+        erhalten. 
 
     \subsection*{Numerik des Hamiltonsystems}
-        
-        Damit haben wir dann die rechte Seite $F:=J^T\cdot\nabla H:\R\times\R^{2\cdot 3}\to\R^{2\cdot 3}$ gegeben durch die Matrix
+        Um die Theorie der Numerik auf unser Problem anwenden zu können, müssen wir noch eine \emph{rechte Seite} definieren. Wir finden diese über die \emph{Hamiltonischen Bewegungsgleichungen}, welche durch die Richtungsableitungen in $q(t)$ und $p(t)$ gegeben und in einem Tupel zusammengefasst werden. Hierzu bestimmen wir zunächst
+        \begin{align*}
+            \dv{a}H(t,(a,p(t))) &= \dv{a}\Biggl(
+                \frac{p(t)^2}{2m_S} + V(t,a)
+            \Biggr) = \dv{a}V(t,a),\\
+            \dv{b}H(t,(q(t),b)) &= \dv{b}\Biggl(
+                \frac{b^2}{2m_S} + V(t,q(t))
+            \Biggr) = \frac{b}{m_S} + \dv{b}V(t,q(t)).
+        \end{align*}    
+        Dabei ist einmal
+        \[
+            \dv{a}V(t,a) = G\cdot\sum_{i\in[2]}\dv{a}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - a}{2}} = G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - a}{2}^2}\cdot\dv{a}\dabs{Q_i^*(t) - a}{2},
+        \]
+        sowie $\dv{b}V(t,q(t)) = 0$. Damit erhalten wir die Hamiltonischen Bewegungsgleichungen und gleichzeitig durch $F(t,x(t)):=\bigl(-\dv{b}H(t,(x_1^*(t),b)),\dv{a}H(t,(a,x_2^*(t)))\bigr)$ die rechte Seite des Hamiltonsystems:
+        \begin{align*}
+            F(t,x(t)) = \begin{pmatrix}
+                -x_2^*(t)/m_S\\
+                \dv{a}V(t,a)|_{a=x_1^* (t)}
+            \end{pmatrix}.
+        \end{align*}
+        So können wir dann die rechte Seite $F=J^T\cdot\nabla H:\R\times\R^{2\cdot 3}\to\R^{2\cdot 3}$ durch die Matrix
         \[
             J:=\begin{pmatrix}
                 0 & I_{3} \\
                 -I_{3} & 0
-            \end{pmatrix}.
+            \end{pmatrix}
         \]
-        Dies lässt uns nun das simulationsgebende AWP $F$ mit Start- und Zielrandwert beschreiben:
-        \[
-            \bigl((0,(q_0,q_0')),0\bigr),\qquad \bigl((t_1,(q_0,q_0')),0\bigr).
-        \]
+        darstellen.
 
 
 
