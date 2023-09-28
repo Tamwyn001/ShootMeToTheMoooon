@@ -2,4 +2,59 @@
 
 \begin{document}
     
+
+    Zunächst ist die Situation mathematisch zu beschreiben, wobei wir uns aufgrund der numerischen Bekanntheit für eine Hamilton-Modellierung entscheiden. Zur Erinnerung: Für ein Potential $V:\R\times\R^d\to\R$ hat die Hamiltonfunktion die Form 
+    \[
+        H(t,(q(t),p(t))) = \frac{p(t)^2}{2m} + V(t,q(t)).
+    \]
+    Um eine konkrete Abbildungsvorschrift zu erlangen, stellen wir die Lagrange Funktion des Systems auf und finden mithilfe von einer Potentialüberlegung und der Legendre Transformation die schließliche Form. 
+
+    \subsection*{Grundlegende Überlegung}
+        Wir konzentrieren uns auf ein Dreikörperproblem, bei welchem eine Masse (diejenige des Satelliten) im Vergleich zu den anderen beiden Körpermassen der Erde und des Mondes klein ist. Als Ortskoordinaten der drei Körper verwenden wir Wege der Form 
+        \[
+            q:\R\to\R^3,\qquad t\mapsto (x_1^*(t),x_2^*(t),x_3^*(t)),
+        \]
+        wobei $x:\R\to\R^3$ unser tatsächlicher Aufenthaltsort in kartesischen Koordinaten ist. Wir legen die Erde mit Zentrum im Ursprung fest und setzen ihren Radius auf $r_E:=6300\si{\kilo\metre}$, sodaß unser $x_0$ Element des Randes $\delta B_{r_E}:=\{x\in\R^3:\dabs{x}{3} = r_A\}$ sein wird. Ziel ist das Erreichen des Ortes
+        \[
+            x_1\in B_{r_M,d}:=(B_{r_M}+d):=\{x + d\in\R^3:\dabs{x}{2} = r_M\}
+        \]
+        festgelegt durch den Zentrumsvektor $d$ des Mondes zum Erdzentrum und den Mondradius $r_M:=??\si{\kilo\metre}$.
+
+    \subsection*{Potentialbeschreibung}
+        Für das \emph{Gravitationspotential} des Systems wählen wir zwei Newtonsche Potentiale an den jeweiligen Zentren des Mondes und der Erde. Allgemein schreiben wir:
+        \[
+            V:\R\times\R^3\to \R,\qquad (t,q(t),q'(t))\mapsto G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i(t) - q(t)}{2}},
+        \]
+        wobei wir in $Q$ die Orte der Erde (an Stelle $1$) und des Mondes (an Stelle $2$) sammeln und mit $m_S$ die Satellitenmasse bzw. mit $m:=(m_E,m_M)$ die Erd- bzw. Mondmasse bezeichnen:
+        \[
+            Q:\R\to\R^3,\qquad t\mapsto \bigl(0_\R^3,d\bigr).
+        \]
+        Wir lassen hier bewusst die Masse des Satelliten selbst aus, da wir sonst eine Singularität an jeder Stelle durch $1/\dabs{q(t)-q(t)}{2}$ erhielten. 
+
+    \subsection*{Lagrange Funktion}
+        Damit haben wir dann die Lagrange Funktion in der Form 
+        \[
+            L:\R\times\bigl(\R^3\bigr)^2\to\R,\qquad \bigl(t,(q(t),q'(t))\bigr)\mapsto\frac{q'(t)^2}{2m} - G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i(t) - q(t)}{2}}
+        \]
+
+
+    \subsection*{Legendre Transformation}
+
+
+    \subsection*{Numerik des Hamiltonsystems}
+        
+        Damit haben wir dann die rechte Seite $F:=J^T\cdot\nabla H:\R\times\R^{2\cdot 3}\to\R^{2\cdot 3}$ gegeben durch die Matrix
+        \[
+            J:=\begin{pmatrix}
+                0 & I_{3} \\
+                -I_{3} & 0
+            \end{pmatrix}.
+        \]
+        Dies lässt uns nun das simulationsgebende AWP $F$ mit Start- und Zielrandwert beschreiben:
+        \[
+            \bigl((0,(q_0,q_0')),0\bigr),\qquad \bigl((t_1,(q_0,q_0')),0\bigr).
+        \]
+
+
+
 \end{document}

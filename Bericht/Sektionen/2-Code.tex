@@ -1,5 +1,31 @@
 \documentclass{subfiles}
 
 \begin{document}
-    
+    \subsection*{Codestruktur}
+        Zunächst definieren wir die Systemgleichungen in \texttt{header/sysDGL.hpp} und importieren sie in \texttt{main.cpp} zusammen mit der Definition nötiger Variablen $G$, \emph{Mond-Erde-Distanz} $MEd$, der \emph{Erdmasse} $m_E$ sowie der \emph{Mondmasse} $m_M$. 
+        
+        Die numerische Lösung des AWPs zu $F$ definieren wir als Funktion in \texttt{header/shooting.hpp} und importieren sie auf die Systemgleichungen folgend in \texttt{main.cpp}. Grundlegende Variablendeklarationen sind bereits zu Beginn von \texttt{main.cpp} erledigt worden: Die \emph{Rechenzeitintervallbreite} $T$, die \emph{gewünschte Schrittweite} $wdt$, sowie die Berechnung der \emph{Rechenschrittanzahl} $nt$ und der \emph{tatsächlichen Schrittweite} $dt$, sodaß $0$ sowie $T$ im Gitter $G_{dt}$ liegen. 
+        
+        Zum Speichern der Lösung zu einem Zeitpunkt $t_i$ verwenden wir eine \emph{Lösungsstruktur} \emph{Lsng}, welche den Lösungswert $u(t_i)$ des AWPs zu $F$, sowie ihren Ableitungswert $u'(t_i)$ speichert. Sie wird ausschließlich durch $F$ verändert.
+
+        Die berechneten Stützstellen $u(t_i), u'(t_i)$ sowie die zugehörigen Zeiten $t_i$ werden in einer Cachedatei unter \texttt{/tmp/data/moonshot.csv} im RAM gespeichert, um die ROM-Verwendung zu reduzieren. 
+
+    \subsection*{Implementierung}
+        \subsubsection*{Lösungsberechnung}
+
+            Formal ist $A:\mcL\to\R^d$ also eine Bijektion zwischen Lösungsraum und $\R^d$, welche wir zur Bestimmung des Lösungsvorschlages $x_k$ aus den Anfangswerten verwenden. Zum Einsatz kommt hier das \emph{Runge-Kutta-Verfahren}. 
+
+        \subsubsection*{Nullstellenbestimmung auf der Bedingungsfunktion}
+            Die Bedingungsfunktion stellt sich weiter als Abbildung von $\mcL$ nach $\R$ heraus, welche wir von der Form 
+            \[
+                B:\mcL\to\R,\qquad u\mapsto \dabs{(u(0) - x_0,u(t_1) - x_1)}{2}
+            \]
+            definieren und damit eine Möglichkeit des Abstandmessens vom gewünschten Startpunkt $x_0$ zum aktuellen Startpunkt $u(0)$ bzw. gewünschten Zielpunkt $x_1$ zum aktuellen Zielpunkt $u(t_1)$ vorschlagen. Ist $B(u) = 0$, so betrachten wir $u$ als Lösung des vorgestellten AWPs zu $F$. 
+
+        \subsubsection*{Lösung des Fixpunktproblems}
+            Daraus ergibt sich dann ein Fixpunktproblem der Form 
+            \[
+                \Phi(x_k) = (B\circ A^{-1})(x_k) \to 0.
+            \]
+            Jede Iteration führt zu einer Veränderung des Wertes $q'(0)$.
 \end{document}
