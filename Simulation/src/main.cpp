@@ -22,6 +22,7 @@ typedef struct {
 	R3 p;
 	R3 dq;
 	R3 dp;
+	R3 S1, S2; 	// Startwerte für die Schüsse
 } Lsng;
 
 

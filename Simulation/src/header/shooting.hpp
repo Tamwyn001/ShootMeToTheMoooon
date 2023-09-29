@@ -2,6 +2,15 @@ double check(Lsng* L) {
     return pnorm(2, L->q - x1);
 }
 
+/*
+    Nullstellenverfahren für die Fixpunktiteration.
+*/
+void newtonstep(Lsng* L) {
+    R3 x1, x2;
+    x1 = L->S1;
+    x2 = L->S2;
+}
+
 void correct(Lsng* L0) {
     // L0->p = // Wie genau korrigieren?
 }
