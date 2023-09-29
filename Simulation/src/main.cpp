@@ -16,13 +16,15 @@ const double tol = 0.001;	// Toleranz für die Abweichung am Ende des Recheninte
 */
 #include "header/R3.hpp"
 
-
+/*
+	Definiere die Lösungsstruktur. Wir wollen gleichzeitig zwei Bahnen berechnen, um sie nachher im Newtonverfahren vergleichen zu können. Dazu brauchen wir zwei Wege q, p, dq, dp (auf denen gerechnet wird) und zwei Startwerte S1, S2.
+*/
 typedef struct {
-	R3 q;
-	R3 p;
-	R3 dq;
-	R3 dp;
-	R3 S1, S2; 	// Startwerte für die Schüsse
+	R3 q1, q2;
+	R3 p1, p2;
+	R3 dq1, dq2;
+	R3 dp1, dp2;
+	R3 S1, S2; 	// Startwerte p(0) für die Schüsse
 } Lsng;
 
 
@@ -60,10 +62,16 @@ int main () {
 			c ist Normabweichung vom Ziel
 	*/
 	Lsng L0 = {
-		R3(0.0, 0.0, rE),
-		R3(0.0, 0.0, 0.0),
-		R3(0.0, 0.0, 0.0),
-		R3(0.0, 0.0, 0.0),
+		R3(0.0, 0.0, rE),	// Startwert q1
+		R3(0.0, 0.0, rE), 	// Startwert q2
+		R3(0.0, 0.0, 0.0),	// Startwert p1
+		R3(0.0, 0.0, 0.0),	// Startwert p2
+		R3(0.0, 0.0, 0.0), 	// Startwert dq1
+		R3(0.0, 0.0, 0.0), 	// Startwert dq2
+		R3(0.0, 0.0, 0.0), 	// Startwert dp1
+		R3(0.0, 0.0, 0.0), 	// Startwert dp2
+		R3(2.0, 0.0, 0.0), 	// Startwert S1
+		R3(1.0, 1.0, 1.0) 	// Startwert S2
 	};
 	Lsng L = L0;
 	double cor = 1;
@@ -71,13 +79,13 @@ int main () {
 
 	for (int i = 0; i < n; i++) {
 		shooting(i * dt, &L, &L0, &cor);
-		fprintf(dof, "%g,%g,%g,%g,%g,%g,%g,%g,%g,%g,%g,%g\n", i * dt, L.q.x, L.q.y, L.q.z, L.p.x, L.p.y, L.p.z, L.dq.x, L.dq.y, L.dq.z, L.dp.x, L.dp.y, L.dp.z);
+		fprintf(dof, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n", i * dt, L.q1.x, L.q1.y, L.q1.z, L.q2.x, L.q2.y, L.q2.z, L.p1.x, L.p1.y, L.p1.z, L.p2.x, L.p2.y, L.p2.z, cor);
 
 		// check if solution is close
 		if (cor < tol) {
     	    continue;
     	} else {
-    	    correct(L0);
+    	    newtonstep(&L0);
     	}
 	}
 	
