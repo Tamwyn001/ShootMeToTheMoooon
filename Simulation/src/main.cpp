@@ -7,7 +7,7 @@ const int n = 1000;			// Anzahl der Schüsse im Shooting-Verfahren
 const double wdt = 0.001;	// Wunsch-Schrittweite
 
 const int nt = (int) T / wdt;	// Rechenschritte
-const double dt = T / nt		// Tatsächliche, auf das Intervall angepasste Schrittweite
+const double dt = T / nt;		// Tatsächliche, auf das Intervall angepasste Schrittweite
 
 const double tol = 0.001;	// Toleranz für die Abweichung am Ende des Rechenintervalls
 
@@ -50,7 +50,7 @@ const R3 x1 = locM - R3(0, 0, rM);		// Ziel
 
 int main () {
 	FILE* dof;
-	fopen("/tmp/data/moonshot.csv")
+	dof = fopen("/tmp/data/moonshot.csv", "w");
 
 	/*
 		Verfahrensinitialisierung:
@@ -59,18 +59,18 @@ int main () {
 			c ist Normabweichung vom Ziel
 	*/
 	Lsng L0 = {
-		R3(0, 0, rE);
-		R3(0, 0, 0);
-		R3(0, 0, 0);
-		R3(0, 0, 0);
+		R3(0.0, 0.0, rE),
+		R3(0.0, 0.0, 0.0),
+		R3(0.0, 0.0, 0.0),
+		R3(0.0, 0.0, 0.0),
 	};
 	Lsng L = L0;
 	double cor = 1;
 
 
 	for (int i = 0; i < n; i++) {
-		shooting(i * dt, &L, &L0, &c);
-		fprintf(dof, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n", i * dt, L.q.x, L.q.y, L.q.z, L.p.x, L.p.y, L.p.z, L.dq.x, L.dq.y, L.dq.z, L.dp.x, L.dp.y, L.dp.z);
+		shooting(i * dt, &L, &L0, &cor);
+		fprintf(dof, "%g,%g,%g,%g,%g,%g,%g,%g,%g,%g,%g,%g\n", i * dt, L.q.x, L.q.y, L.q.z, L.p.x, L.p.y, L.p.z, L.dq.x, L.dq.y, L.dq.z, L.dp.x, L.dp.y, L.dp.z);
 
 		// check if solution is close
 		if (cor < tol) {

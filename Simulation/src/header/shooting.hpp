@@ -3,7 +3,7 @@ double check(Lsng* L) {
 }
 
 void correct(Lsng* L0) {
-    L0->p = // Wie genau korrigieren?
+    // L0->p = // Wie genau korrigieren?
 }
 
 void eulerstep(double t, Lsng* L) {
@@ -32,27 +32,7 @@ double RK4Koeff[4][4] = {
 double RK4KoeffSum[4] = {0.16666667, 0.3333334, 0.3333334, 0.16666667};
 
 void rk4step(double t, Lsng* L, void (*F)(double, Lsng*)) {
-    R3 k[4], sum_aij_kj;
-    Lsng gL = *L;
-
-    for (int pi = 0; pi < p; pi++) {
-        for (int kj = 0; kj < 4; kj++) {
-            F(t + RK4Koeff[kj][0] * h, &gL);
-            k[kj] = gL.dq[pi];
-
-            for (int skj = 0; skj < kj; skj++) {
-                sum_aij_kj = k[skj] * RK4Koeff[kj][skj];
-            }
-
-            for (int spi = 0; spi < p; spi++) {
-                gL.u[spi] = L->q[spi] + sum_aij_kj * h;
-            }
-        }
-
-        for (int kj = 0; kj < 4; kj++) {
-            L->q[pi] += k[kj] * h * RK4KoeffSum[kj];
-        }
-    }
+    // 
 }
 
 

@@ -7,20 +7,20 @@ struct R3 {
         this->z = z;
     };
 
-    R3 operator+ (const R3& other) {
+    R3 operator+ (const R3& other) const {
         return R3(this->x + other.x, this->y + other.y, this->z + other.z);
     };
-    R3 operator- (const R3& other) {
+    R3 operator- (const R3& other) const {
         return R3(this->x - other.x, this->y - other.y, this->z - other.z);
     };
-    R3 operator* (const double& other) {
-        return R3(this->x * other, this->y * other, this->z * other);
+    R3 operator* (const R3& other) const {
+        return R3(this->x * other.x, this->y * other.y, this->z * other.z);
     };
 
-    R3 operator* (const double& other) {
+    R3 operator* (const double& other) const {
         return R3(this->x * other, this->y * other, this->z * other);
     };
-    R3 operator/ (const double& other) {
+    R3 operator/ (const double& other) const {
         return R3(this->x / other, this->y / other, this->z / other);
     };
 };
