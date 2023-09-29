@@ -1,5 +1,5 @@
 # LaTeX
-*.pdf
+# *.pdf
 *.aux
 *.log
 *.out
