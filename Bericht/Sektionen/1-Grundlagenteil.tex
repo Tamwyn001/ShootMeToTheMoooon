@@ -67,10 +67,39 @@
                 \frac{b^2}{2m_S} + V(t,q(t))
             \Biggr) = \frac{b}{m_S} + \dv{b}V(t,q(t)).
         \end{align*}    
-        Dabei ist einmal
+        An dieser Stelle müssen wir noch einmal arbeiten, um die Ableitung des Potentials in $q(t)$ zu bestimmen, da es sich um eine Verkettung höheren Grades handelt. Definiere $g_i:=\bigl(\dabs{Q_i(t)-a}{2}\bigr)_{a\in\R^3}$, dann ist zunächst
         \[
-            \dv{a}V(t,a) = G\cdot\sum_{i\in[2]}\dv{a}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - a}{2}} = G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - a}{2}^2}\cdot\dv{a}\dabs{Q_i^*(t) - a}{2},
+            \dv{a}V(t,a) = G\cdot\sum_{i\in[2]}\dv{a}\frac{m_i\cdot m_S}{g(a)} = G\cdot\sum_{i\in[2]}m_i\cdot m_S\cdot\dv{a}\frac{1}{g_i(a)},
         \]
+        sodaß wir durch Kenntnis der Ableitung von inv auf $\R$, gegeben durch $d$inv$(x)(1) = ($inv$\circ q_2)(x)$ mit $q_2$ als Quadratmonom fernder schreiben können:
+        \[
+            \dv{a}\frac{1}{g_i(a)} = d(\inv\circ g_i)(a)(1) = (\inv\circ q_2\circ g_i)(a)\cdot dg_i(a)(1) = \frac{1}{g_i(a)^2}\cdot \dv{a}g_i(a).  
+        \]
+        % Dabei verstecken wir in $h_a = (0,(1,0))$ die verwendete Ableitungsrichtung gemäß der tatsächlichen Argumente von $H$. 
+        Ferner ist $dg(x)(h_a)$ zu evaluieren, was wir durch $l_{i}:=\bigl((Q_i(t) - x)^2\bigr)_{x\in\R}$ fortsetzen zu
+        \[
+            dg_i(a)(h) = \sum_{k\in[3]}dg_i(x)(h_k\cdot\mbbEins_k), \qquad\mbbEins_{k}:=\fdef{\begin{cases}
+                1 & i = k\\
+                0 & \text{sonst}
+            \end{cases}}{i\in[3]}
+        \]
+        sodaß $g$ für die Richtung $h=1\in\R^3$ die Form 
+        \[
+            dg_i(a)(\mbbEins_k) = \dv{a_k}\left.\nbra{l_i(a_k) + \sum_{j\in[3]\setminus{\{k\}}}l_{i}(a_j)}^{\frac12}\right|_{a = x_j}
+        \]
+        besitzt, nach Definition der Quadratnorm. Leiten wir beispielsweise in Richtung $\mbbEins_1$ ab, so erhalten wir für $\tilde L_i(a,k)$ als Zusammenfassung des Wurzelinhaltes
+        \[
+            \dv{a_1}\sqrt{\tilde L_i(a,1)} = \frac{1}{\sqrt{\tilde L_i(a,1)}}\cdot\dv{a_1}\tilde L_i(a,1) = \frac{1}{\sqrt{\tilde L_i(a,1)}}\cdot 2\cdot (Q_i(t) - a_1). 
+        \]
+        Dadurch ergibt sich für die gesamte Richtung der Ausdruck 
+        \[
+            \dv{a}g_i(x)(h_a) = \sum_{k\in[3]}\frac{1}{\tilde L(a,k)}\cdot 2\cdot (Q_i(t) - a_k),
+        \]
+        wobei \enquote{der Rest der Summe} wegen fehlender $a_k$ Abhängigkeit stets wegfällt und unsere anfangs gesuchte Ableitung des Potentials in $a$ sich zu 
+        \[
+            \dv{a}V(t,a) = G\cdot\sum_{i\in[2]}m_i\cdot m_S\cdot\frac{1}{g_i(a)}\cdot\sum_{k\in[3]}\frac{1}{\tilde L(a,k)}\cdot 2\cdot (Q_i(t) - a_k)
+        \]
+        zusammensetzt.
         sowie $\dv{b}V(t,q(t)) = 0$. Damit erhalten wir die Hamiltonischen Bewegungsgleichungen und gleichzeitig durch $F(t,x(t)):=\bigl(-\dv{b}H(t,(x_1^*(t),b)),\dv{a}H(t,(a,x_2^*(t)))\bigr)$ die rechte Seite des Hamiltonsystems:
         \begin{align*}
             F(t,x(t)) = \begin{pmatrix}
