@@ -11,6 +11,9 @@
 *.lot
 *.bbl
 
+#Simulation
+*.csv
+
 # Apple
 .DS_Store
 

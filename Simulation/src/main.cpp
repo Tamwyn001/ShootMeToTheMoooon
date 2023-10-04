@@ -53,8 +53,7 @@ const R3 x1 = locM - R3(0, 0, rM);		// Ziel
 
 int main () {
 	FILE* dof;
-	dof = fopen("/tmp/data/moonshot.csv", "w");
-
+	dof = fopen("Simulation/tmp/moonshot.csv", "w");
 	/*
 		Verfahrensinitialisierung:
 			L ist Lösung auf der gerechnet wird
