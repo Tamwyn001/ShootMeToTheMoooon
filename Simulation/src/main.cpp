@@ -59,7 +59,7 @@ int main () {
 		Verfahrensinitialisierung:
 			L ist Lösung auf der gerechnet wird
 			L0 ist der Startwert, wird immer am Ende korrigiert
-			c ist Normabweichung vom Ziel
+			cor ist Normabweichung vom Ziel
 	*/
 	Lsng L0 = {
 		R3(0.0, 0.0, rE),	// Startwert q1
