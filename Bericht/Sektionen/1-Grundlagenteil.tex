@@ -71,10 +71,10 @@
         \begin{align*}
             \dv{a}H(t,(a,p(t))) &= \dv{a}\Biggl(
                 \frac{p(t)^2}{2m_S} + V(t,a)
-            \Biggr) = \dv{a}V(t,a),\\
+            \Biggr) = \dv{a}V(t,a),\numberthis\label{eq:dHa}\tag{dHa}\\
             \dv{b}H(t,(q(t),b)) &= \dv{b}\Biggl(
                 \frac{b^2}{2m_S} + V(t,q(t))
-            \Biggr) = \frac{b}{m_S} + \dv{b}V(t,q(t)).
+            \Biggr) = \frac{b}{m_S} + \ubra{\dv{b}V(t,q(t))}{=0}.\numberthis\label{eq:dHb}\tag{dHb}
         \end{align*}    
         An dieser Stelle müssen wir noch einmal arbeiten, um die Ableitung des Potentials in $q(t)$ zu bestimmen, da es sich um eine Verkettung höheren Grades handelt. Definiere $g_i:=\bigl(\dabs{Q_i(t)-a}{2}\bigr)_{a\in\R^3}$, dann ist zunächst
         \[
@@ -85,38 +85,47 @@
             \dv{a}\frac{1}{g_i(a)} = d(\inv\circ g_i)(a)(1) = (\inv\circ q_2\circ g_i)(a)\cdot dg_i(a)(1) = \frac{1}{g_i(a)^2}\cdot \dv{a}g_i(a).  
         \]
         % Dabei verstecken wir in $h_a = (0,(1,0))$ die verwendete Ableitungsrichtung gemäß der tatsächlichen Argumente von $H$. 
-        Ferner ist $dg(x)(h_a)$ zu evaluieren, was wir durch $l_{i}:=\bigl((Q_i(t) - x)^2\bigr)_{x\in\R}$ fortsetzen zu
+        Ferner ist $dg_i(x)(h)$ für $h\in\R^3$ zu evaluieren (wir erinnern uns, daß unser $a$ einen \emph{Platzhalter} für den später eingesetzten Wegpunkt $q(t)\in\R^3$ darstellt), was wir durch $l_{i,j}:=\bigl((Q_i(t)_j - x)^2\bigr)_{x\in\R}$ fortsetzen zu
         \[
-            dg_i(a)(h) = \sum_{k\in[3]}dg_i(x)(h_k\cdot\mbbEins_k), \qquad\mbbEins_{k}:=\fdef{\begin{cases}
+            dg_i(a)(h) = \sum_{k\in[3]}dg_i(a)(h_k\cdot\mbbEins_k), \qquad\mbbEins_{k}:=\fdef{\begin{cases}
                 1 & i = k\\
                 0 & \text{sonst}
             \end{cases}}{i\in[3]}
         \]
-        sodaß $g$ für die Richtung $h=1\in\R^3$ die Form 
+        sodaß die Ableitung von $g$ für die Richtung $h=1\in\R^3$ in der $k$-ten Komponente der obigen Summe zusammen mit der Quadratnorm $\dabs{x}{2} := \bigl(x_1^2 + x_2^2 + x_3^2\bigr)^{1/2}$ die Form 
         \[
-            dg_i(a)(\mbbEins_k) = \dv{a_k}\left.\nbra{l_i(a_k) + \sum_{j\in[3]\setminus{\{k\}}}l_{i}(a_j)}^{\frac12}\right|_{a = x_j}
+            dg_i(a)(\mbbEins_k) = \dv{a_k}\nbra{l_{i,k}(a_k) + \sum_{j\in[3]\setminus{\{k\}}}l_{i,j}(a_j)}^{\frac12}
         \]
-        besitzt, nach Definition der Quadratnorm. Leiten wir beispielsweise in Richtung $\mbbEins_1$ ab, so erhalten wir für $\tilde L_i(a,k)$ als Zusammenfassung des Wurzelinhaltes
+        besitzt, also beispielsweise für $k=1$ gerade
         \[
-            \dv{a_1}\sqrt{\tilde L_i(a,1)} = \frac{1}{\sqrt{\tilde L_i(a,1)}}\cdot\dv{a_1}\tilde L_i(a,1) = \frac{1}{\sqrt{\tilde L_i(a,1)}}\cdot 2\cdot (Q_i(t) - a_1). 
+            dg_i(a)(\mbbEins_1) = \dv{a_1}\nbra{\ubra{(Q_i(t)_1 - a_1)^2}{l_{i,1}(a_1)} + \ubra{(Q_i(t)_2 - a_2)^2}{l_{i,2}(a_2)} + \ubra{(Q_i(t)_3 - a_3)^2}{l_{i,3}(a_3)}}^{\frac12}.
         \]
-        Dadurch ergibt sich für die gesamte Richtung der Ausdruck 
+        Leiten wir diese Richtung speziell ab, so erhalten wir für $W_i(a_1)$ als Zusammenfassung des Wurzelinhaltes
         \[
-            \dv{a}g_i(x)(h_a) = \sum_{k\in[3]}\frac{1}{\tilde L(a,k)}\cdot 2\cdot (Q_i(t) - a_k),
+            \dv{a_1}\sqrt{W_i(a_1)} = \frac{1}{\sqrt{W_i(a_1)}}\cdot\dv{a_1}W(a_1) = \frac{1}{\sqrt{W_i(a_1)}}\cdot 2\cdot (Q_i(t)_1 - a_1). 
+        \]
+        Es findet sich so durch die Symmetrie der symbolisch gesammelte Ableitungsausdruck $\dv{a_k}\sqrt{W_i}(a_k) = 2\cdot (Q_i(t)_k - a_k) / \sqrt{W_i(a_k)}$. Die Summe derer ist wiederum die Ableitung von $g_i$ in $a$:
+        \[
+            \dv{a}g_i(a)(1_\R^3) = \sum_{k\in[3]}\frac{1}{W_i(a_k)}\cdot 2\cdot (Q_i(t)_k - a_k),
         \]
         wobei \enquote{der Rest der Summe} wegen fehlender $a_k$ Abhängigkeit stets wegfällt und unsere anfangs gesuchte Ableitung des Potentials in $a$ sich zu 
         \[
-            \dv{a}V(t,a) = G\cdot\sum_{i\in[2]}m_i\cdot m_S\cdot\frac{1}{g_i(a)}\cdot\sum_{k\in[3]}\frac{1}{\tilde L(a,k)}\cdot 2\cdot (Q_i(t) - a_k)
+            \dv{a}V(t,a) = G\cdot\sum_{i\in[2]}m_i\cdot m_S\cdot\frac{1}{g_i(a)}\cdot\sum_{k\in[3]}\frac{1}{W_i(a_K))}\cdot 2\cdot (Q_i(t)_k - a_k)\numberthis\label{eq:dV}\tag{dV}
         \]
-        zusammensetzt.
-        sowie $\dv{b}V(t,q(t)) = 0$. Damit erhalten wir die Hamiltonischen Bewegungsgleichungen und gleichzeitig durch $F(t,x(t)):=\bigl(-\dv{b}H(t,(x_1^*(t),b)),\dv{a}H(t,(a,x_2^*(t)))\bigr)$ die rechte Seite des Hamiltonsystems:
+        zusammensetzt. Damit erhalten wir die Hamiltonischen Bewegungsgleichungen und gleichzeitig durch die Defintion $F(t,x(t)):=\bigl(-\dv{b}H(t,(x_1^*(t),b)),\dv{a}H(t,(a,x_2^*(t)))\bigr)$ die rechte Seite des Hamiltonsystems:
         \begin{align*}
-            F(t,x(t)) = \begin{pmatrix}
-                -x_2^*(t)/m_S\\
-                \dv{a}V(t,a)|_{a=x_1^* (t)}
+            F(t,u(t)) = \begin{pmatrix}
+                -u_2^*(t)/m_S\\
+                \dv{a}V(t,a)|_{a=u_1^* (t)}
             \end{pmatrix}.
         \end{align*}
-        So können wir dann die rechte Seite $F=J^T\cdot\nabla H:\R\times\R^{2\cdot 3}\to\R^{2\cdot 3}$ durch die Matrix
+
+    \subsubsection*{Optionale Matrixdarstellung}
+        Definieren wir eine Zusammenfassung der Vektorkomponenten von $u(t)\in(\R^3)^2$ zu einer Funktion $U:\R\to\R^{3\cdot 2}$ als
+        \[
+            U:t\mapsto \bigl(u_1^*(t)_1,u_1^*(t)_2,u_1^*(t)_3,u_2^*(t)_1,u_2^*(t)_2,u_2^*(t)_3\bigr),
+        \]
+        so können wir die rechte Seite $F=J^T\cdot\nabla H:\R\times\R^{2\cdot 3}\to\R^{2\cdot 3}$ durch die Matrix
         \[
             J:=\begin{pmatrix}
                 0 & I_{3} \\
