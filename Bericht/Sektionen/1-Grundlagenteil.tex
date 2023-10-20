@@ -12,9 +12,9 @@
     \subsection*{Grundlegende Überlegung}
         Wir konzentrieren uns auf ein Dreikörperproblem, bei welchem eine Masse (diejenige des Satelliten) im Vergleich zu den anderen beiden Körpermassen der Erde und des Mondes klein ist. Als Ortskoordinaten der drei Körper verwenden wir Wege der Form 
         \[
-            q:\R\to\R^3,\qquad t\mapsto (x_1^*(t),x_2^*(t),x_3^*(t)),
+            q:\R\to\R^3,\qquad t\mapsto \bigl((f_{C\to S}\circ x)_1^*(t),(f_{C\to S}\circ x)_2^*(t),(f_{C\to S}\circ x)_3^*(t)\bigr),
         \]
-        wobei $x:\R\to\R^3$ unser tatsächlicher Aufenthaltsort in kartesischen Koordinaten ist. Wir legen die Erde mit Zentrum im Ursprung fest und setzen ihren Radius auf $r_E:=6300\si{\kilo\metre}$, sodaß unser $x_0$ Element des Randes $\delta B_{r_E}:=\{x\in\R^3:\dabs{x}{3} = r_A\}$ sein wird. Ziel ist das Erreichen des Ortes
+        wobei $x:\R\to\R^3$ unser tatsächlicher Aufenthaltsort in kartesischen Koordinaten und $f_{C\to S}$ unsere Kugelkoordinatentransformation (\emph{cartesian to spherical}) ist. Wir legen die Erde mit Zentrum im Ursprung fest und setzen ihren Radius auf $r_E:=6300\si{\kilo\metre}$, sodaß unser $x_0$ Element des Randes $\delta B_{r_E}:=\{x\in\R^3:\dabs{x}{3} = r_A\}$ sein wird. Ziel ist das Erreichen des Ortes
         \[
             x_1\in B_{r_M,d}:=(B_{r_M}+d):=\{x + d\in\R^3:\dabs{x}{2} = r_M\}
         \]
@@ -27,30 +27,39 @@
         \]
         wobei wir in $Q$ die Orte der Erde (an Stelle $1$) und des Mondes (an Stelle $2$) sammeln und mit $m_S$ die Satellitenmasse bzw. mit $m:=(m_E,m_M)$ die Erd- bzw. Mondmasse bezeichnen:
         \[
-            Q:\R\to\R^3,\qquad t\mapsto \bigl(0_\R^3,d\bigr).
+            Q:\R\to(\R^3)^2,\qquad t\mapsto \bigl(0_{\R^3},d\bigr).
         \]
+        An dieser Stelle können wir später ebenfalls bewegte Mond- und Erdmassen einsetzen, indem wir die entsprechenden Einträge durch Funktionen $d_E:\R\to\R^3$ und $d_M:\R\to\R^3$ ersetzen.
+
         Wir lassen hier bewusst die Masse des Satelliten selbst aus, da wir sonst eine Singularität an jeder Stelle durch $1/\dabs{q(t)-q(t)}{2}$ erhielten. 
 
     \subsection*{Lagrange Funktion}
         Der Lagrangeformalismus beschreibt den Unterschied der \emph{kinetischen} zur \emph{potentiellen Energie} des Systems für einen konservatives Kraftfeld und holonome Zwangsbedingungen, wenn es welche gibt, was hier nicht der Fall ist. Als kinetische Energie betrachten wir allgemein die Summe der einzelnen kinetischen Energien der beteiligten Körper als
         \[
-            T(t,(q(t),q'(t))) = \sum_{i\in[3]}\frac12\cdot m_i\cdot\dabs{(Q_i^*)'(t)}{2}^2 + \frac12\cdot m_S\cdot\dabs{q'(t)}{2}^2.
+            T(t,(q(t),q'(t))) = \sum_{i\in[2]}\frac12\cdot m_i\cdot\dabs{(Q_i^*)'(t)}{2}^2 + \frac12\cdot m_S\cdot\dabs{q'(t)}{2}^2.
         \]
         % -> Sind die Q(t) bzw. q(t) hier richtig implementiert?
         Unter der Annahme ruhender Erde und Mondes können wir $T_0(t,(q(t),q'(t)))$ über $m_S\cdot \dabs{q'(t)}{2}^2 / 2$ beschreiben. Zusammen mit dem oben bereits bestimmten Potential $V$ erhalten wir durch die Form $L = T - V\circ\phi$ mit der Argumentauswahlfunktion $\phi:=\bigl((t,x_1)\bigr)_{(t,x)}$ den Lagrangian
         \[
             L:\R\times\bigl(\R^3\bigr)^2\to\R,\qquad \bigl(t,(q(t),q'(t))\bigr)\mapsto \frac12\cdot m_S\cdot\dabs{q'(t)}{^2} - G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - q(t)}{2}}.
         \]
+        Liegen nichtkonstante Wege $Q_i^*$ vor, so wird die Strategie unverändert bleiben, da eine Ableitung in Richtung $q'(t)$ vorliegt, welche nicht in der Definition von $Q$ enthalten ist, sodaß allgemeiner gelten wird
+        \[
+            L:\bigl(t,(q(t),q'(t))\bigr)\mapsto T\bigl(t,(q(t),q'(t))\bigr) - (V\circ\psi)\bigl(t,(q(t),q'(t))\bigr),
+        \]
+        wobei dann die Summanden in der Implementierung einzeln vorberechnet werden müssen.
         
 
     \subsection*{Legendre Transformation}
         Um die Hamiltonfunktion aufstellen zu können, braucht es eine Transformation der Form $p(t):=\dv{b}L(t,(q(t),b))|_{b=q'(t)}$, sodaß wir durch 
-        \[
-            \dv{b}L(t,(q(t),b))|_{b=q'(t)} = \dv{b}\Biggl(
-                \frac12\cdot m_S\cdot\dabs{b}{2} - G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - q(t)}{2}}    
-            \Biggr)
-            = m_S\cdot q'(t)
-        \]
+        \begin{align*}
+            \dv{b}L(t,(q(t),b))|_{b=q'(t)} &= \dv{b}\left.\Biggl(
+                T\bigl(t,(q(t),q'(t))\bigr) - G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - q(t)}{2}}    
+            \Biggr)\right|_{b=q'(t)} \\
+            &= \dv{b}T\bigl(t,(q(t),b)\bigr)|_{b=q'(t)} \\
+            &= \sum_{i\in[2]}\dv{b}\left.\biggl(\frac12\cdot m_i\cdot\dabs{(Q')_i^*(t)}{2}^2\biggr)\right|_{b=q'(t)} + \dv{b}\left.\biggl(\frac12\cdot m_S\cdot\dabs{b}{2}^2\biggr)\right|_{b=q'(t)} \\
+            &\stackrel{?}{=}m_S\cdot \dabs{q'(t)}{2}
+        \end{align*}
         und Substitution $q'(t) = p(t) / m_S$ den Hamiltonian der Form 
         \[
             H(t,(q(t),p(t))) = \frac{p(t)^2}{2m_S} + V(t,q(t))
@@ -71,7 +80,7 @@
         \[
             \dv{a}V(t,a) = G\cdot\sum_{i\in[2]}\dv{a}\frac{m_i\cdot m_S}{g(a)} = G\cdot\sum_{i\in[2]}m_i\cdot m_S\cdot\dv{a}\frac{1}{g_i(a)},
         \]
-        sodaß wir durch Kenntnis der Ableitung von inv auf $\R$, gegeben durch $d$inv$(x)(1) = ($inv$\circ q_2)(x)$ mit $q_2$ als Quadratmonom fernder schreiben können:
+        sodaß wir durch Kenntnis der Ableitung von inv auf $\R$, gegeben durch $d$inv$(x)(1) = ($inv$\circ q_2)(x)$ mit $q_2$ als Quadratmonom ferner schreiben können:
         \[
             \dv{a}\frac{1}{g_i(a)} = d(\inv\circ g_i)(a)(1) = (\inv\circ q_2\circ g_i)(a)\cdot dg_i(a)(1) = \frac{1}{g_i(a)^2}\cdot \dv{a}g_i(a).  
         \]
