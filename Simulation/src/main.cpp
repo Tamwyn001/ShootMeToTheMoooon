@@ -53,7 +53,7 @@ const R3 x1 = locM - R3(0, 0, rM);		// Ziel
 
 int main () {
 	FILE* dof;
-	dof = fopen("Simulation/tmp/moonshot.csv", "w");
+	dof = fopen("/tmp/data/moon.csv", "w");
 	/*
 		Verfahrensinitialisierung:
 			L ist Lösung auf der gerechnet wird
@@ -62,7 +62,7 @@ int main () {
 	*/
 	Lsng L0 = {
 		R3(0.0, 0.0, rE),	// Startwert q1
-		R3(0.0, 0.0, rE), 	// Startwert q2
+		R3(0.0, 0.0, -rE), 	// Startwert q2
 		R3(0.0, 0.0, 0.0),	// Startwert p1
 		R3(0.0, 0.0, 0.0),	// Startwert p2
 		R3(0.0, 0.0, 0.0), 	// Startwert dq1

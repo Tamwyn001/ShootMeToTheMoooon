@@ -23,6 +23,13 @@ struct R3 {
     R3 operator/ (const double& other) const {
         return R3(this->x / other, this->y / other, this->z / other);
     };
+
+    R3 operator+= (const R3& other) {
+        this->x += other.x;
+        this->y += other.y;
+        this->z += other.z;
+        return *this;
+    };
 };
 
 double scpr (R3 a, R3 b) {
