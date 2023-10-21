@@ -87,14 +87,14 @@
         % Dabei verstecken wir in $h_a = (0,(1,0))$ die verwendete Ableitungsrichtung gemäß der tatsächlichen Argumente von $H$. 
         Ferner ist $dg_i(x)(h)$ für $h\in\R^3$ zu evaluieren (wir erinnern uns, daß unser $a$ einen \emph{Platzhalter} für den später eingesetzten Wegpunkt $q(t)\in\R^3$ darstellt), was wir durch $l_{i,j}:=\bigl((Q_i(t)_j - x)^2\bigr)_{x\in\R}$ fortsetzen zu
         \[
-            dg_i(a)(h) = \sum_{k\in[3]}dg_i(a)(h_k\cdot\mbbEins_k), \qquad\mbbEins_{k}:=\fdef{\begin{cases}
+            dg_i(a)(h) = \sum_{k\in[3]}h_k\cdot dg_i(a)(\mbbEins_k), \qquad\mbbEins_{k}:=\fdef{\begin{cases}
                 1 & i = k\\
                 0 & \text{sonst}
             \end{cases}}{i\in[3]}
         \]
         sodaß die Ableitung von $g$ für die Richtung $h=1\in\R^3$ in der $k$-ten Komponente der obigen Summe zusammen mit der Quadratnorm $\dabs{x}{2} := \bigl(x_1^2 + x_2^2 + x_3^2\bigr)^{1/2}$ die Form 
         \[
-            dg_i(a)(\mbbEins_k) = \dv{a_k}\nbra{l_{i,k}(a_k) + \sum_{j\in[3]\setminus{\{k\}}}l_{i,j}(a_j)}^{\frac12}
+            dg_i(a)(\mbbEins_k) = \dv{s}\left.\nbra{l_{i,k}(a_k + s) + \sum_{j\in[3]\setminus{\{k\}}}l_{i,j}(a_j)}^{\frac12}\right|_{s=0}
         \]
         besitzt, also beispielsweise für $k=1$ gerade
         \[
@@ -102,15 +102,15 @@
         \]
         Leiten wir diese erste Richtung speziell ab, so erhalten wir für $W_i(a) = \sum_{k\in[3]}l_{i,k}(a_k)$ als Zusammenfassung des Wurzelinhaltes
         \[
-            \dv{a_1}\sqrt{W_i(a)} = \ubra{\frac{1}{\sqrt{W_i(a)}}}{=\dabs{Q_i(t) - a}{2}^{-1}}\cdot\dv{a_1}l_{i,1}(a_1) = \ubra{\frac{1}{\dabs{Q_i(t) - a}{2}}}{= 1/g_i(a)}\cdot 2\cdot (Q_i(t)_1 - a_1). 
+            \dv{s}\left.\sqrt{W_i(a + s\cdot\mbbEins_1)}\right|_{s=0} = \ubra{\frac{1}{\sqrt{W_i(a)}}}{=\dabs{Q_i(t) - a}{2}^{-1}}\cdot\dv{a_1}l_{i,1}(a_1) = \ubra{\frac{1}{\dabs{Q_i(t) - a}{2}}}{= 1/g_i(a)}\cdot 2\cdot (Q_i(t)_1 - a_1). 
         \]
-        Es findet sich so durch die Symmetrie der symbolisch gesammelte Ableitungsausdruck $\dv{a_k}g_i(a) = 2\cdot (Q_i(t)_k - a_k) / g_i(a)$. Die Summe derer ist wiederum die Ableitung von $g_i$ in $a$:
+        Es findet sich so durch die Symmetrie der symbolisch gesammelte Ableitungsausdruck $\dv{a_k}g_i(a) = 2\cdot (Q_i(t)_k - a_k) / g_i(a)$. Die Zusammenfassung derer ist wiederum der Ableitungstensor von $g_i$ in $a$:
         \[
-            \dv{a}g_i(a)(1_\R^3) = \frac{2}{g_i(a)}\cdot\ubra{\sum_{k\in[3]}(Q_i(t)_k - a_k)}{=:\dabs{Q_i(t) - a}{1}},
+            \dv{a}g_i(a) = \frac{2}{g_i(a)}\cdot\fdef{Q_i(t)_k - a_k}{k\in[3]},
         \]
-        wobei \enquote{der Rest der Summe} wegen fehlender $a_k$ Abhängigkeit stets wegfällt und unsere anfangs gesuchte Ableitung des Potentials in $a$ sich zu 
+        sodaß sich unsere anfangs gesuchte Ableitung des Potentials in $a$ zu 
         \[
-            \dv{a}V(t,a) = G\cdot m_S\cdot\sum_{i\in[2]}m_i\cdot\frac{2}{g_i(a)^3}\cdot\dabs{Q_i(t) - a}{1}\numberthis\label{eq:dV}\tag{dV}
+            \dv{a}V(t,a) = G\cdot m_S\cdot\sum_{i\in[2]}m_i\cdot\frac{2}{g_i(a)^3}\cdot\fdef{Q_i(t)_k - a_k}{k\in[3]}\numberthis\label{eq:dV}\tag{dV}
         \]
         zusammensetzt. Damit erhalten wir die Hamiltonischen Bewegungsgleichungen und gleichzeitig durch die Defintion $F(t,u(t)):=\bigl(-\dv{b}H(t,(u_1^*(t),b))_{b=u_2^*(t)},\dv{a}H(t,(a,u_2^*(t)))|_{a=u_1^*(t)}\bigr)$ die rechte Seite des Hamiltonsystems:
         \begin{align*}
