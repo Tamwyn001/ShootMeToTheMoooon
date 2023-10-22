@@ -6,7 +6,10 @@
     \[
         \dv{b}L\left.\bigl(t,(q(t),b)\bigr)\right|_{b=q'(t)} = \fdef{
             \dv{s}L\left.\bigl(t,(q(t),q'(t) + s\cdot\mbbEins_k)\bigr)\right|_{s=0} \\
-        }{k\in[3]}.
+        }{k\in[3]},\quad \mbbEins_{k}:=\fdef{\begin{cases}
+            1 & i = k\\
+            0 & \text{sonst}
+        \end{cases}}{i\in[3]}
     \]
     Somit erhalten wir konkret:
     \begin{align*}
@@ -42,4 +45,14 @@
             p(t)_1^2 + \frac{p(t)_2^2}{q(t)_1^2} + \frac{p(t)_3^2}{q(t)_1^2\cdot\sin(q(t)_2)^2}
         \right).
     \end{align*}
+    Für die Ableitung des Hamiltonians nach $p(t)$ müssen wir lediglich die Ableitung $\dv{b}T(t,(q(t),b))|_{b = p(t)}$ durchführen. Wir erhalten dabei drei Komponenten, wie auch schon bei der Legendre Transformation. Diese lauten hier
+    \begin{align*}
+        \dv{s}T\left.\bigl(t,(q(t),p(t) + s\cdot\mbbEins_1)\bigr)\right|_{s=0} &= \frac{1}{2\cdot m_S}\cdot\dv{b_1}b_1^2|_{b_1 = p(t)_1} \\
+        &= \frac{1}{m_S}\cdot p(t)_1, \\
+        \dv{s}T\left.\bigl(t,(q(t),p(t) + s\cdot\mbbEins_2)\bigr)\right|_{s=0} &= \frac{1}{2\cdot m_S\cdot q(t)_1^2}\cdot\dv{b_2}b_2^2|_{b_2 = p(t)_2} \\
+        &= \frac{1}{m_S\cdot q(t)_1^2}\cdot p(t)_2, \\
+        \dv{s}T\left.\bigl(t,(q(t),p(t) + s\cdot\mbbEins_3)\bigr)\right|_{s=0} &= \frac{1}{2\cdot m_S\cdot q(t)_1^2\cdot\sin(q(t)_2)^2}\cdot\dv{b_3}b_3^2|_{b_3 = p(t)_3} \\
+        &= \frac{1}{m_S\cdot q(t)_1^2\cdot\sin(q(t)_2)^2}\cdot p(t)_3.
+    \end{align*}
+    Die Zusammenfassung bildet dann die nötige Richtungsableitung für die zweite Hamiltonsche Bewegungsgleichung. 
 \end{document}
