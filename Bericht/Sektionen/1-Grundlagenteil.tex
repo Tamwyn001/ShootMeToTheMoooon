@@ -20,6 +20,39 @@
         \]
         festgelegt durch den Zentrumsvektor $d$ des Mondes zum Erdzentrum und den Mondradius $r_M:=1 737,4\si{\kilo\metre}$ (0,273 Erde).
 
+    \subsection*{Potentialbeschreibung}
+        Für das \emph{Gravitationspotential} des Systems wählen wir zwei Newtonsche Potentiale an den jeweiligen Zentren des Mondes und der Erde. Allgemein schreiben wir:
+        \[
+            V:\R\times\R^3\to \R,\qquad (t,q(t),q'(t))\mapsto G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{(f_{S\to C}\circ Q_i)^*(t) - (f_{S\to C}\circ q)(t)}{2}},
+        \]
+        wobei wir in $Q$ die Orte der Erde (an Stelle $1$) und des Mondes (an Stelle $2$) sammeln und mit $m_S$ die Satellitenmasse bzw. mit $m:=(m_E,m_M)$ die Erd- bzw. Mondmasse bezeichnen:
+        \[
+            Q:\R\to(\R^3)^2,\qquad t\mapsto \bigl(0_{\R^3},d\bigr).
+        \]
+        An dieser Stelle können wir später ebenfalls bewegte Mond- und Erdmassen einsetzen, indem wir die entsprechenden Einträge durch Funktionen $d_E:\R\to\R^3$ und $d_M:\R\to\R^3$ ersetzen.
+
+        Wir lassen hier bewusst die Masse des Satelliten selbst aus, da wir sonst eine Singularität an jeder Stelle durch $1/\dabs{q(t)-q(t)}{2}$ erhielten.\\
+
+        Um besser mit dem Potential rechnen zu können, finden wir im Folgenden eine explizitere Form. Schreiben wir zuerst $f_{S\to C}\circ q = x$ in eine nützlichere Form. Mit den \textit{Tangenteneinheitsvektoren} in Kugelkoordinaten,
+        \begin{align*}
+            e_1(q(t)) &= \begin{pmatrix}\sin(q_2^*(t))\cdot\cos(q_3^*(t))\\ \sin(q_2^*(t))\cdot\sin(q_3^*(t))\\ \cos(q_2^*(t))\end{pmatrix},\qquad
+            e_2(q(t)) = \begin{pmatrix}\cos(q_2^*(t))\cdot\cos(q_3^*(t))\\ \cos(q_2^*(t))\cdot\sin(q_3^*(t))\\ -\sin(q_2^*(t))\end{pmatrix},\\
+            e_3(q(t)) &= \begin{pmatrix}-\sin(q_3^*(t))\\ \cos(q_3^*(t))\\ 0\end{pmatrix},
+        \end{align*}
+        gelingt dies in Form von $x(t) = q_1^*(t)\cdot e_1(q(t))$. Die Vektoren wurden dabei als Funktionen $e_i: \R^3\to \R^3$ modeliert. Wegen $Q_1(t)=0_{\R^3}$ müssen wir für die Koordinate der Erde keine große Berechnung durchführen, wohl aber für die Position des Mondes. Ohne Einschränkung befinde sich diese in der x-y-Ebene. Um beide Modelle eines statischen Mondes und eines die Erde umkreisenden, wählen wir die Form 
+        \[
+            Q_2(t) = d\cdot\begin{pmatrix}\cos(\Phi_M(t))\\\sin(\Phi_M(t))\end{pmatrix}.
+        \]
+        Dabei ist $\Phi_M: \R\to \R$ eine beliebige stetig differenzierbare Phasenfunktion.
+
+        \begin{ergebnis}
+            Das Potential in Kugelkoordinaten lautet also 
+            \begin{align*}
+                &V(t, q(t)) = G\cdot \frac{m_1\cdot m_S}{q_1^*(t)}\\
+                +& G\cdot \frac{m_2\cdot m_S}{\sqrt{q_1^*(t)^2 + d^2 - 2\cdot q_1^*(t)\cdot d\cdot\cos(\Phi_M(t))\cdot\sin(q_2^*(t))\cdot[\cos(q_3^*(t)) + \sin(q_3^*(t))]}}.
+            \end{align*}
+        \end{ergebnis}
+
     \subsection*{Kinetische Energie in Kugelkoordinaten}
         Als kinetische Energie des \underline{Gesamtsystems} betrachten wir allgemein die Summe der einzelnen kinetischen Energien der beteiligten Körper als
         \[
@@ -29,13 +62,7 @@
         \[
             T(t,(q(t),q'(t))) = \frac12\cdot m_S\cdot\dabs{(f_{S\to C}\circ q)'(t)}{2}^2.
         \] 
-        Wir wollen noch einen möglichst expliziten Ausdruck finden. Schreiben wir zuerst $f_{S\to C}\circ q = x$ in eine nützlichere Form. Mit den \textit{Tangenteneinheitsvektoren} in Kugelkoordinaten,
-        \begin{align*}
-            e_1(q(t)) &= \begin{pmatrix}\sin(q_2^*(t))\cdot\cos(q_3^*(t))\\ \sin(q_2^*(t))\cdot\sin(q_3^*(t))\\ \cos(q_2^*(t))\end{pmatrix},\qquad
-            e_2(q(t)) = \begin{pmatrix}\cos(q_2^*(t))\cdot\cos(q_3^*(t))\\ \cos(q_2^*(t))\cdot\sin(q_3^*(t))\\ -\sin(q_2^*(t))\end{pmatrix},\\
-            e_3(q(t)) &= \begin{pmatrix}-\sin(q_3^*(t))\\ \cos(q_3^*(t))\\ 0\end{pmatrix},
-        \end{align*}
-        gelingt dies in Form von $x(t) = q_1^*(t)\cdot e_1(q(t))$. Die Vektoren wurden dabei als Funktionen $e_i: \R^3\to \R^3$ modeliert. Für die Geschwindigkeit ergibt sich 
+        Wir wollen wieder einen möglichst expliziten Ausdruck finden und gehen von $x(t)=q_1^*(t)\cdot e_1(q(t))$ aus. Für die Geschwindigkeit ergibt sich 
         \begin{align*}
             x'(t) &= \nbra{\dv{t} q_1^*(t)}\cdot e_1(q(t)) + q_1^*(t)\cdot\nbra{\dv{t} e_1(q(t))}.
         \end{align*}
@@ -50,39 +77,26 @@
         \end{align*}
         Wir halten als Zwischenstand fest 
         \begin{align*}
-            
+            x'(t) &= q'(t)_1\cdot e_1(q(t)) + q_1^*(t)\cdot q'(t)_3\cdot e_2(q(t)) + q_1^*(t)\cdot q'(t)_3\cdot\sin(q_2^*(t))\cdot e_3(q(t)).
         \end{align*}
         Nun ergibt sich als Normquadrat dieser Geschwindigkeit wegen der euklidischen Orthonormalität der Tangenteneinheitsvektoren
         \begin{align*}
-            \dabs{x'(t)}^2_2 &= \dabs{x'(t)}^2_2
+            \dabs{x'(t)}_2^2 &= \dabs{q'(t)_1\cdot e_1(q(t)) + q_1^*(t)\cdot q'(t)_3\cdot e_2(q(t)) + q_1^*(t)\cdot q'(t)_3\cdot\sin(q_2^*(t))\cdot e_3(q(t))}_2^2\\
+            &= q'(t)_1^2 +q_1^*(t)^2\cdot q'(t)_3^2 + q_1^*(t)^2\cdot q'(t)_3^2\cdot\sin(q_2^*(t))^2
         \end{align*}
-
         \begin{ergebnis}
-            Für die kinetische Energie gilt
+            Damit erhalten wir einen ausgeschriebenen Ausdruck für die kinetische Energie:
             \[
-                T(t,q(t),q'(t)) = \frac{1}{2}\cdot m_S\cdot\nbra{q'(t)_1^2 + q(t)_1^2\cdot q'(t)_2^2 + q(t)_1^2\cdot q'(t)_3^2\cdot\sin(q(t)_2)^2}.
+                T(t,q(t),q'(t)) = \frac{1}{2}\cdot m_S\cdot\nbra{q'(t)_1^2 + q_1^*(t)^2\cdot q'(t)_2^2 + q_1^*(t)^2\cdot q'(t)_3^2\cdot\sin(q_2^*(t))^2}.
             \]
         \end{ergebnis}
-
-    \subsection*{Potentialbeschreibung}
-        Für das \emph{Gravitationspotential} des Systems wählen wir zwei Newtonsche Potentiale an den jeweiligen Zentren des Mondes und der Erde. Allgemein schreiben wir:
-        \[
-            V:\R\times\R^3\to \R,\qquad (t,q(t),q'(t))\mapsto G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - q(t)}{2}},
-        \]
-        wobei wir in $Q$ die Orte der Erde (an Stelle $1$) und des Mondes (an Stelle $2$) sammeln und mit $m_S$ die Satellitenmasse bzw. mit $m:=(m_E,m_M)$ die Erd- bzw. Mondmasse bezeichnen:
-        \[
-            Q:\R\to(\R^3)^2,\qquad t\mapsto \bigl(0_{\R^3},d\bigr).
-        \]
-        An dieser Stelle können wir später ebenfalls bewegte Mond- und Erdmassen einsetzen, indem wir die entsprechenden Einträge durch Funktionen $d_E:\R\to\R^3$ und $d_M:\R\to\R^3$ ersetzen.
-
-        Wir lassen hier bewusst die Masse des Satelliten selbst aus, da wir sonst eine Singularität an jeder Stelle durch $1/\dabs{q(t)-q(t)}{2}$ erhielten. 
 
     \subsection*{Lagrange Funktion}
         Der Lagrangeformalismus beschreibt den Unterschied der \emph{kinetischen} zur \emph{potentiellen Energie} des Systems für einen konservatives Kraftfeld und holonome Zwangsbedingungen, wenn es welche gibt, was hier nicht der Fall ist.
         % Als kinetische Energie betrachten wir allgemein die Summe der einzelnen kinetischen Energien der beteiligten Körper als
-        \[
-            T(t,(q(t),q'(t))) = \sum_{i\in[2]}\frac12\cdot m_i\cdot\dabs{(Q_i^*)'(t)}{2}^2 + \frac12\cdot m_S\cdot\dabs{q'(t)}{2}^2.
-        \]
+        %\[
+        %    T(t,(q(t),q'(t))) = \sum_{i\in[2]}\frac12\cdot m_i\cdot\dabs{(Q_i^*)'(t)}{2}^2 + \frac12\cdot m_S\cdot\dabs{q'(t)}{2}^2.
+        %\]
         % -> Sind die Q(t) bzw. q(t) hier richtig implementiert?
         % Unter der Annahme ruhender Erde und Mondes können wir $T_0(t,(q(t),q'(t)))$ über $m_S\cdot \dabs{q'(t)}{2}^2 / 2$ beschreiben.
         Zusammen mit dem oben bereits bestimmten Potential $V$ erhalten wir durch die Form $L = T - V\circ\phi$ mit der Argumentauswahlfunktion $\phi:=\bigl((t,x_1)\bigr)_{(t,x)}$ den Lagrangian
