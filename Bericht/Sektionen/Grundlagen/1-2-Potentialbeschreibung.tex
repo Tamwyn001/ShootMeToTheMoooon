@@ -1,0 +1,55 @@
+\documentclass{subfiles}
+
+\begin{document}
+    Für das \emph{Gravitationspotential} des Systems wählen wir zwei Newtonsche Potentiale an den jeweiligen Zentren des Mondes und der Erde. Allgemein schreiben wir:
+    \[
+        V:\R\times\R^3\to \R,\qquad (t,q(t),q'(t))\mapsto G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{(f_{S\to C}\circ Q_i)^*(t) - (f_{S\to C}\circ q)(t)}{2}},
+    \]
+    wobei wir in $Q$ die Orte der Erde (an Stelle $1$) und des Mondes (an Stelle $2$) sammeln und mit $m_S$ die Satellitenmasse bzw. mit $m:=(m_E,m_M)$ die Erd- bzw. Mondmasse bezeichnen:
+    \[
+        Q:\R\to(\R^3)^2,\qquad t\mapsto \bigl(0_{\R^3},d\bigr).
+    \]
+    An dieser Stelle können wir später ebenfalls bewegte Mond- und Erdmassen einsetzen, indem wir die entsprechenden Einträge durch Funktionen $d_E:\R\to\R^3$ und $d_M:\R\to\R^3$ ersetzen.
+
+    Wir lassen hier bewusst die Masse des Satelliten selbst aus, da wir sonst eine Singularität an jeder Stelle durch $1/\dabs{q(t)-q(t)}{2}$ erhielten.\\
+
+    Um besser mit dem Potential rechnen zu können, finden wir im Folgenden eine explizitere Form. Schreiben wir zuerst $f_{S\to C}\circ q = x$ in eine nützlichere Form. Mit den \textit{Tangenteneinheitsvektoren} in Kugelkoordinaten,
+    \begin{align*}
+        e_1(q(t)) &= \begin{pmatrix}\sin(q_2^*(t))\cdot\cos(q_3^*(t))\\ \sin(q_2^*(t))\cdot\sin(q_3^*(t))\\ \cos(q_2^*(t))\end{pmatrix},\qquad
+        e_2(q(t)) = \begin{pmatrix}\cos(q_2^*(t))\cdot\cos(q_3^*(t))\\ \cos(q_2^*(t))\cdot\sin(q_3^*(t))\\ -\sin(q_2^*(t))\end{pmatrix},\\
+        e_3(q(t)) &= \begin{pmatrix}-\sin(q_3^*(t))\\ \cos(q_3^*(t))\\ 0\end{pmatrix},
+    \end{align*}
+    gelingt dies in Form von $x(t) = q_1^*(t)\cdot e_1(q(t))$. Die Vektoren wurden dabei als Funktionen $e_i: \R^3\to \R^3$ modeliert. Wegen $Q_1(t)=0_{\R^3}$ müssen wir für die Koordinate der Erde keine große Berechnung durchführen, wohl aber für die Position des Mondes. Ohne Einschränkung befinde sich diese in der x-y-Ebene. Wir wollen zwei Modellvorstellungen betrachten:
+    \begin{itemize}
+        \item ein statischer Mond
+        \item ein Mond, der auf einer Ellipsenbahn die Erde umkreist
+    \end{itemize}
+    Für beide Modelle ist eine geeignete Form
+    \[
+        Q_2(t) = \begin{pmatrix}a\cdot\cos(\Phi_M(t))\\b\cdot \sin(\Phi_M(t))\\ 0\end{pmatrix}.
+    \]
+    Dabei sind $a,b\in\R$ Bahnparameter und $\Phi_M: \R\to \R$ eine beliebige stetig differenzierbare Phasenfunktion. Eingesetzt in die Potentialformel ergibt sich
+    \begin{align*}
+        V(t,q(t)) &= G\cdot m_1\cdot m_S\cdot \dabs{q_1^*(t)\cdot e_1(q(t))}{2}^{-1}\\
+        &+ m_2\cdot m_S\cdot\dabs{q_1^*(t)\cdot e_1(q(t)) - \begin{pmatrix}a\cdot\cos(\Phi_M(t))\\b\cdot \sin(\Phi_M(t))\end{pmatrix}}{2}^{-1}
+    \end{align*}
+    Wir behandeln beide Summanden separat. Für den ersten ergibt sich unter Ausnutzung der Normiertheit von $e_1(q(t))$
+    \begin{align*}
+        \dabs{q_1^*(t)\cdot e_1(q(t))}{2}^{-1} &= q_1^*(t)^{-1}\cdot\dabs{e_1(q(t))}{2}^{-1} = q_1^{*}(t)^{-1}.
+    \end{align*}
+    Den zweiten Summand schreibt man aus als 
+    \begin{align*}
+        &\dabs{q_1^*(t)\cdot e_1(q(t)) - \begin{pmatrix}a\cdot\cos(\Phi_M(t))\\b\cdot \sin(\Phi_M(t))\end{pmatrix}}{2}^{-1}\\
+        =& \dabs{q_1^*(t)\cdot \begin{pmatrix}\sin(q_2^*(t))\cdot\cos(q_3^*(t))\\ \sin(q_2^*(t))\cdot\sin(q_3^*(t))\\ \cos(q_2^*(t))\end{pmatrix} - \begin{pmatrix}a\cdot\cos(\Phi_M(t))\\b\cdot \sin(\Phi_M(t))\\ 0\end{pmatrix}}{2}^{-1}\\
+        =& \dabs{\begin{pmatrix}q_1^*(t)\cdot \sin(q_2^*(t))\cdot\cos(q_3^*(t)) - a\cdot\cos(\Phi_M(t))\\ q_1^*(t)\cdot\sin(q_2^*(t))\cdot\sin(q_3^*(t)) - b\cdot\sin(\Phi_M(t))\end{pmatrix}}{2}^{-1}
+    \end{align*} 
+
+    \begin{ergebnis}
+        Wir halten für das Potential fest:
+        \begin{align*}
+            V(t,q(t)) &= G\cdot m_1\cdot m_S\cdot q_1^*(t)^{-1}\\
+            &+ G\cdot m_2\cdot m_S\cdot \dabs{\begin{pmatrix}q_1^*(t)\cdot \sin(q_2^*(t))\cdot\cos(q_3^*(t)) - a\cdot\cos(\Phi_M(t))\\ q_1^*(t)\cdot\sin(q_2^*(t))\cdot\sin(q_3^*(t)) - b\cdot\sin(\Phi_M(t))\end{pmatrix}}{2}^{-1}.
+        \end{align*}
+    \end{ergebnis}
+
+\end{document}

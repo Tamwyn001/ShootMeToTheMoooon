@@ -1,8 +1,6 @@
 \documentclass{subfiles}
 
 \begin{document}
-    
-
     Zunächst ist die Situation mathematisch zu beschreiben, wobei wir uns aufgrund der numerischen Bekanntheit für eine Hamilton-Modellierung entscheiden. Zur Erinnerung: Für ein Potential $V:\R\times\R^d\to\R$ hat die Hamiltonfunktion die Form 
     \[
         H(t,(q(t),p(t))) = \frac{p(t)^2}{2m} + V(t,q(t)).
@@ -10,193 +8,24 @@
     Um eine konkrete Abbildungsvorschrift zu erlangen, stellen wir die Lagrange Funktion des Systems auf und finden mithilfe von einer Potentialüberlegung und der Legendre Transformation die schließliche Form. 
 
     \subsection*{Grundlegende Überlegung}
-        Wir konzentrieren uns auf ein Dreikörperproblem, bei welchem eine Masse (diejenige des Satelliten) im Vergleich zu den anderen beiden Körpermassen der Erde und des Mondes klein ist. Als Ortskoordinaten der drei Körper verwenden wir Wege der Form 
-        \[
-            q:\R\to\R^3,\qquad t\mapsto \bigl((f_{C\to S}\circ x)_1^*(t),(f_{C\to S}\circ x)_2^*(t),(f_{C\to S}\circ x)_3^*(t)\bigr),
-        \]
-        wobei $x:\R\to\R^3$ unser tatsächlicher Aufenthaltsort in kartesischen Koordinaten und $f_{C\to S}$ unsere Kugelkoordinatentransformation (\emph{cartesian to spherical}) ist. Wir legen die Erde mit Zentrum im Ursprung fest und setzen ihren Radius auf $r_E:=6300\si{\kilo\metre}$, sodaß unser $x_0$ Element des Randes $\delta B_{r_E}:=\{x\in\R^3:\dabs{x}{3} = r_A\}$ sein wird. Ziel ist das Erreichen des Ortes
-        \[
-            x_1\in B_{r_M,d}:=(B_{r_M}+d):=\{x + d\in\R^3:\dabs{x}{2} = r_M\}
-        \]
-        festgelegt durch den Zentrumsvektor $d$ des Mondes zum Erdzentrum und den Mondradius $r_M:=1 737,4\si{\kilo\metre}$ (0,273 Erde).
-
+        \subfile{Grundlagen/1-1-GrundlegendeUeberlegungen.tex}
+        
     \subsection*{Potentialbeschreibung}
-        Für das \emph{Gravitationspotential} des Systems wählen wir zwei Newtonsche Potentiale an den jeweiligen Zentren des Mondes und der Erde. Allgemein schreiben wir:
-        \[
-            V:\R\times\R^3\to \R,\qquad (t,q(t),q'(t))\mapsto G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{(f_{S\to C}\circ Q_i)^*(t) - (f_{S\to C}\circ q)(t)}{2}},
-        \]
-        wobei wir in $Q$ die Orte der Erde (an Stelle $1$) und des Mondes (an Stelle $2$) sammeln und mit $m_S$ die Satellitenmasse bzw. mit $m:=(m_E,m_M)$ die Erd- bzw. Mondmasse bezeichnen:
-        \[
-            Q:\R\to(\R^3)^2,\qquad t\mapsto \bigl(0_{\R^3},d\bigr).
-        \]
-        An dieser Stelle können wir später ebenfalls bewegte Mond- und Erdmassen einsetzen, indem wir die entsprechenden Einträge durch Funktionen $d_E:\R\to\R^3$ und $d_M:\R\to\R^3$ ersetzen.
-
-        Wir lassen hier bewusst die Masse des Satelliten selbst aus, da wir sonst eine Singularität an jeder Stelle durch $1/\dabs{q(t)-q(t)}{2}$ erhielten.\\
-
-        Um besser mit dem Potential rechnen zu können, finden wir im Folgenden eine explizitere Form. Schreiben wir zuerst $f_{S\to C}\circ q = x$ in eine nützlichere Form. Mit den \textit{Tangenteneinheitsvektoren} in Kugelkoordinaten,
-        \begin{align*}
-            e_1(q(t)) &= \begin{pmatrix}\sin(q_2^*(t))\cdot\cos(q_3^*(t))\\ \sin(q_2^*(t))\cdot\sin(q_3^*(t))\\ \cos(q_2^*(t))\end{pmatrix},\qquad
-            e_2(q(t)) = \begin{pmatrix}\cos(q_2^*(t))\cdot\cos(q_3^*(t))\\ \cos(q_2^*(t))\cdot\sin(q_3^*(t))\\ -\sin(q_2^*(t))\end{pmatrix},\\
-            e_3(q(t)) &= \begin{pmatrix}-\sin(q_3^*(t))\\ \cos(q_3^*(t))\\ 0\end{pmatrix},
-        \end{align*}
-        gelingt dies in Form von $x(t) = q_1^*(t)\cdot e_1(q(t))$. Die Vektoren wurden dabei als Funktionen $e_i: \R^3\to \R^3$ modeliert. Wegen $Q_1(t)=0_{\R^3}$ müssen wir für die Koordinate der Erde keine große Berechnung durchführen, wohl aber für die Position des Mondes. Ohne Einschränkung befinde sich diese in der x-y-Ebene. Um beide Modelle eines statischen Mondes und eines die Erde umkreisenden, wählen wir die Form 
-        \[
-            Q_2(t) = d\cdot\begin{pmatrix}\cos(\Phi_M(t))\\\sin(\Phi_M(t))\end{pmatrix}.
-        \]
-        Dabei ist $\Phi_M: \R\to \R$ eine beliebige stetig differenzierbare Phasenfunktion.
-
-        \begin{ergebnis}
-            Das Potential in Kugelkoordinaten lautet also 
-            \begin{align*}
-                &V(t, q(t)) = G\cdot \frac{m_1\cdot m_S}{q_1^*(t)}\\
-                +& G\cdot \frac{m_2\cdot m_S}{\sqrt{q_1^*(t)^2 + d^2 - 2\cdot q_1^*(t)\cdot d\cdot\cos(\Phi_M(t))\cdot\sin(q_2^*(t))\cdot[\cos(q_3^*(t)) + \sin(q_3^*(t))]}}.
-            \end{align*}
-        \end{ergebnis}
+        \subfile{Grundlagen/1-2-Potentialbeschreibung.tex}
 
     \subsection*{Kinetische Energie in Kugelkoordinaten}
-        Als kinetische Energie des \underline{Gesamtsystems} betrachten wir allgemein die Summe der einzelnen kinetischen Energien der beteiligten Körper als
-        \[
-            T_G(t,(q(t),q'(t))) = \sum_{i\in[2]}\frac12\cdot m_i\cdot\dabs{((f_{S\to C}\circ Q)_i^*)'(t)}{2}^2 + \frac12\cdot m_S\cdot\dabs{(f_{S\to C}\circ q)'(t)}{2}^2.
-        \]
-        Dabei ist $f_{S\to C}:= f_{C\to S}^{-1}$ die Rücktransformation von Kugelkoordinaten auf kartesische Koordinaten. Unsere generalisierten Koordinaten beziehen sich jedoch nur auf eine Betrachtung des Satelliten, dessen kinetische Energie ist also
-        \[
-            T(t,(q(t),q'(t))) = \frac12\cdot m_S\cdot\dabs{(f_{S\to C}\circ q)'(t)}{2}^2.
-        \] 
-        Wir wollen wieder einen möglichst expliziten Ausdruck finden und gehen von $x(t)=q_1^*(t)\cdot e_1(q(t))$ aus. Für die Geschwindigkeit ergibt sich 
-        \begin{align*}
-            x'(t) &= \nbra{\dv{t} q_1^*(t)}\cdot e_1(q(t)) + q_1^*(t)\cdot\nbra{\dv{t} e_1(q(t))}.
-        \end{align*}
-        Die totale Zeitableitung von $e_1$ berechnen wir stur explizit
-        \begin{align*}
-            \dv{t} e_1(q(t)) &= \begin{pmatrix}\dv{t} \sin(q_2^*(t))\cdot\cos(q_3^*(t))\\\dv{t} \sin(q_2^*(t)\cdot\sin(q_3^*(t)))\\\dv{t} \cos(q_2^*(t))\end{pmatrix}\\
-            &= \begin{pmatrix}\nbra{\dv{t} \sin(q_2^*(t))}\cdot\cos(q_3^*(t)) + \sin(q_2^*(t))\cdot\nbra{\dv{t}\cos(q_3^*(t))}\\\nbra{\dv{t} \sin(q_2^*(t))}\cdot\sin(q_3^*(t)) + \sin(q_2^*(t))\cdot\nbra{\dv{t}\sin(q_3^*(t))}\\-q'(t)_2\cdot \sin(q_2^*(t))\end{pmatrix}\\
-            &= \begin{pmatrix}q'(t)_2\cdot\cos(q_2^*(t))\cdot\cos(q_3^*(t)) - \sin(q_2^*(t))\cdot q'(t)_3\cdot\sin(q_3^*(t))\\q'(t)_2\cdot \cos(q_2^*(t))\cdot\sin(q_3^*(t)) + \sin(q_2^*(t))\cdot q'(t)_3\cdot \cos(q_3^*(t))\\-q'(t)_2\cdot \sin(q_2^*(t))\end{pmatrix}\\
-            &= q'(t)_2\cdot \begin{pmatrix}\cos(q_2^*(t))\cdot\cos(q_3^*(t))\\ \cos(q_2^*(t))\cdot\sin(q_3^*(t))\\ -\sin(q_2^*(t))\end{pmatrix} 
-            + q'(t)_3\cdot\sin(q_2^*(t))\cdot\begin{pmatrix}-\sin(q_3^*(t))\\ \cos(q_3^*(t))\\ 0\end{pmatrix}\\
-            &= q'(t)_3\cdot e_2(q(t)) + q'(t)_3\cdot\sin(q_2^*(t))\cdot e_3(q(t)).
-        \end{align*}
-        Wir halten als Zwischenstand fest 
-        \begin{align*}
-            x'(t) &= q'(t)_1\cdot e_1(q(t)) + q_1^*(t)\cdot q'(t)_3\cdot e_2(q(t)) + q_1^*(t)\cdot q'(t)_3\cdot\sin(q_2^*(t))\cdot e_3(q(t)).
-        \end{align*}
-        Nun ergibt sich als Normquadrat dieser Geschwindigkeit wegen der euklidischen Orthonormalität der Tangenteneinheitsvektoren
-        \begin{align*}
-            \dabs{x'(t)}_2^2 &= \dabs{q'(t)_1\cdot e_1(q(t)) + q_1^*(t)\cdot q'(t)_3\cdot e_2(q(t)) + q_1^*(t)\cdot q'(t)_3\cdot\sin(q_2^*(t))\cdot e_3(q(t))}_2^2\\
-            &= q'(t)_1^2 +q_1^*(t)^2\cdot q'(t)_3^2 + q_1^*(t)^2\cdot q'(t)_3^2\cdot\sin(q_2^*(t))^2
-        \end{align*}
-        \begin{ergebnis}
-            Damit erhalten wir einen ausgeschriebenen Ausdruck für die kinetische Energie:
-            \[
-                T(t,q(t),q'(t)) = \frac{1}{2}\cdot m_S\cdot\nbra{q'(t)_1^2 + q_1^*(t)^2\cdot q'(t)_2^2 + q_1^*(t)^2\cdot q'(t)_3^2\cdot\sin(q_2^*(t))^2}.
-            \]
-        \end{ergebnis}
+        \subfile{Grundlagen/1-3-KinetischeEnergie.tex}
 
     \subsection*{Lagrange Funktion}
-        Der Lagrangeformalismus beschreibt den Unterschied der \emph{kinetischen} zur \emph{potentiellen Energie} des Systems für einen konservatives Kraftfeld und holonome Zwangsbedingungen, wenn es welche gibt, was hier nicht der Fall ist.
-        % Als kinetische Energie betrachten wir allgemein die Summe der einzelnen kinetischen Energien der beteiligten Körper als
-        %\[
-        %    T(t,(q(t),q'(t))) = \sum_{i\in[2]}\frac12\cdot m_i\cdot\dabs{(Q_i^*)'(t)}{2}^2 + \frac12\cdot m_S\cdot\dabs{q'(t)}{2}^2.
-        %\]
-        % -> Sind die Q(t) bzw. q(t) hier richtig implementiert?
-        % Unter der Annahme ruhender Erde und Mondes können wir $T_0(t,(q(t),q'(t)))$ über $m_S\cdot \dabs{q'(t)}{2}^2 / 2$ beschreiben.
-        Zusammen mit dem oben bereits bestimmten Potential $V$ erhalten wir durch die Form $L = T - V\circ\phi$ mit der Argumentauswahlfunktion $\phi:=\bigl((t,x_1)\bigr)_{(t,x)}$ den Lagrangian
-        \[
-            L:\R\times\bigl(\R^3\bigr)^2\to\R,\qquad \bigl(t,(q(t),q'(t))\bigr)\mapsto \frac12\cdot m_S\cdot\dabs{q'(t)}{^2} - G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - q(t)}{2}}.
-        \]
-        Liegen nichtkonstante Wege $Q_i^*$ vor, so wird die Strategie unverändert bleiben, da eine Ableitung in Richtung $q'(t)$ vorliegt, welche nicht in der Definition von $Q$ enthalten ist, sodaß allgemeiner gelten wird
-        \[
-            L:\bigl(t,(q(t),q'(t))\bigr)\mapsto T\bigl(t,(q(t),q'(t))\bigr) - (V\circ\psi)\bigl(t,(q(t),q'(t))\bigr),
-        \]
-        wobei dann die Summanden in der Implementierung einzeln vorberechnet werden müssen.
-        
+        \subfile{Grundlagen/1-4-LagrangeFunktion.tex}
 
     \subsection*{Legendre Transformation}
-        Um die Hamiltonfunktion aufstellen zu können, braucht es eine Transformation der Form $p(t):=\dv{b}L(t,(q(t),b))|_{b=q'(t)}$, sodaß wir durch 
-        \begin{align*}
-            \dv{b}L(t,(q(t),b))|_{b=q'(t)} &= \dv{b}\left.\Biggl(
-                T\bigl(t,(q(t),q'(t))\bigr) - G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - q(t)}{2}}    
-            \Biggr)\right|_{b=q'(t)} \\
-            &= \dv{b}T\bigl(t,(q(t),b)\bigr)|_{b=q'(t)} \\
-            &= \sum_{i\in[2]}\dv{b}\left.\biggl(\frac12\cdot m_i\cdot\dabs{(Q')_i^*(t)}{2}^2\biggr)\right|_{b=q'(t)} + \dv{b}\left.\biggl(\frac12\cdot m_S\cdot\dabs{b}{2}^2\biggr)\right|_{b=q'(t)} \\
-            &\stackrel{?}{=}m_S\cdot \dabs{q'(t)}{2}
-        \end{align*}
-        und Substitution $q'(t) = p(t) / m_S$ den Hamiltonian der Form 
-        \[
-            H(t,(q(t),p(t))) = \frac{p(t)^2}{2m_S} + V(t,q(t))
-        \]
-        erhalten. 
+        \subfile{Grundlagen/1-5-LegendreTransformation.tex}
 
     \subsection*{Numerik des Hamiltonsystems}
-        Um die Theorie der Numerik auf unser Problem anwenden zu können, müssen wir noch eine \emph{rechte Seite} definieren. Wir finden diese über die \emph{Hamiltonischen Bewegungsgleichungen}, welche durch die Richtungsableitungen in $q(t)$ und $p(t)$ gegeben und in einem Tupel zusammengefasst werden. Hierzu bestimmen wir zunächst
-        \begin{align*}
-            \dv{a}H(t,(a,p(t))) &= \dv{a}\Biggl(
-                \frac{p(t)^2}{2m_S} + V(t,a)
-            \Biggr) = \dv{a}V(t,a),\numberthis\label{eq:dHa}\tag{dHa}\\
-            \dv{b}H(t,(q(t),b)) &= \dv{b}\Biggl(
-                \frac{b^2}{2m_S} + V(t,q(t))
-            \Biggr) = \frac{b}{m_S} + \ubra{\dv{b}V(t,q(t))}{=0}.\numberthis\label{eq:dHb}\tag{dHb}
-        \end{align*}    
-        An dieser Stelle müssen wir noch einmal arbeiten, um die Ableitung des Potentials in $q(t)$ zu bestimmen, da es sich um eine Verkettung höheren Grades handelt. Definiere $g_i:=\bigl(\dabs{Q_i(t)-a}{2}\bigr)_{a\in\R^3}$, dann ist zunächst
-        \[
-            \dv{a}V(t,a) = G\cdot\sum_{i\in[2]}\dv{a}\frac{m_i\cdot m_S}{g(a)} = G\cdot\sum_{i\in[2]}m_i\cdot m_S\cdot\dv{a}\frac{1}{g_i(a)},
-        \]
-        sodaß wir durch Kenntnis der Ableitung von inv auf $\R$, gegeben durch $d$inv$(x)(1) = ($inv$\circ q_2)(x)$ mit $q_2$ als Quadratmonom ferner schreiben können:
-        \[
-            \dv{a}\frac{1}{g_i(a)} = d(\inv\circ g_i)(a)(1) = (\inv\circ q_2\circ g_i)(a)\cdot dg_i(a)(1) = \frac{1}{g_i(a)^2}\cdot \dv{a}g_i(a).  
-        \]
-        % Dabei verstecken wir in $h_a = (0,(1,0))$ die verwendete Ableitungsrichtung gemäß der tatsächlichen Argumente von $H$. 
-        Ferner ist $dg_i(x)(h)$ für $h\in\R^3$ zu evaluieren (wir erinnern uns, daß unser $a$ einen \emph{Platzhalter} für den später eingesetzten Wegpunkt $q(t)\in\R^3$ darstellt), was wir durch $l_{i,j}:=\bigl((Q_i(t)_j - x)^2\bigr)_{x\in\R}$ fortsetzen zu
-        \[
-            dg_i(a)(h) = \sum_{k\in[3]}h_k\cdot dg_i(a)(\mbbEins_k), \qquad\mbbEins_{k}:=\fdef{\begin{cases}
-                1 & i = k\\
-                0 & \text{sonst}
-            \end{cases}}{i\in[3]}
-        \]
-        sodaß die Ableitung von $g$ für die Richtung $h=1\in\R^3$ in der $k$-ten Komponente der obigen Summe zusammen mit der Quadratnorm $\dabs{x}{2} := \bigl(x_1^2 + x_2^2 + x_3^2\bigr)^{1/2}$ die Form 
-        \[
-            dg_i(a)(\mbbEins_k) = \dv{s}\left.\nbra{l_{i,k}(a_k + s) + \sum_{j\in[3]\setminus{\{k\}}}l_{i,j}(a_j)}^{\frac12}\right|_{s=0}
-        \]
-        besitzt, also beispielsweise für $k=1$ gerade
-        \[
-            dg_i(a)(\mbbEins_1) = \dv{a_1}\nbra{\ubra{(Q_i(t)_1 - a_1)^2}{l_{i,1}(a_1)} + \ubra{(Q_i(t)_2 - a_2)^2}{l_{i,2}(a_2)} + \ubra{(Q_i(t)_3 - a_3)^2}{l_{i,3}(a_3)}}^{\frac12}.
-        \]
-        Leiten wir diese erste Richtung speziell ab, so erhalten wir für $W_i(a) = \sum_{k\in[3]}l_{i,k}(a_k)$ als Zusammenfassung des Wurzelinhaltes
-        \[
-            \dv{s}\left.\sqrt{W_i(a + s\cdot\mbbEins_1)}\right|_{s=0} = \ubra{\frac{1}{\sqrt{W_i(a)}}}{=\dabs{Q_i(t) - a}{2}^{-1}}\cdot\dv{a_1}l_{i,1}(a_1) = \ubra{\frac{1}{\dabs{Q_i(t) - a}{2}}}{= 1/g_i(a)}\cdot 2\cdot (Q_i(t)_1 - a_1). 
-        \]
-        Es findet sich so durch die Symmetrie der symbolisch gesammelte Ableitungsausdruck $\dv{a_k}g_i(a) = 2\cdot (Q_i(t)_k - a_k) / g_i(a)$. Die Zusammenfassung derer ist wiederum der Ableitungstensor von $g_i$ in $a$:
-        \[
-            g_i'(a) = \dv{a}g_i(a) = \frac{2}{g_i(a)}\cdot\fdef{Q_i(t)_k - a_k}{k\in[3]},
-        \]
-        sodaß sich unsere anfangs gesuchte Ableitung des Potentials in $a$ zu 
-        \[
-            \dv{a}V(t,a) = G\cdot m_S\cdot\sum_{i\in[2]}m_i\cdot\frac{2}{g_i(a)^3}\cdot\fdef{Q_i(t)_k - a_k}{k\in[3]}\numberthis\label{eq:dV}\tag{dV}
-        \]
-        zusammensetzt. Damit erhalten wir die Hamiltonischen Bewegungsgleichungen und gleichzeitig durch die Defintion $F(t,u(t)):=\bigl(-\dv{b}H(t,(u_1^*(t),b))_{b=u_2^*(t)},\dv{a}H(t,(a,u_2^*(t)))|_{a=u_1^*(t)}\bigr)$ die rechte Seite des Hamiltonsystems:
-        \begin{align*}
-            F(t,u(t)) = \begin{pmatrix}
-                -u_2^*(t)/m_S\\
-                \dv{a}V(t,a)|_{a=u_1^* (t)}
-            \end{pmatrix}, \qquad u(t) = \begin{pmatrix}
-                q(t)\\
-                p(t)
-            \end{pmatrix}.
-        \end{align*}
-
+        \subfile{Grundlagen/1-6-NumerikHamilton.tex}
+    
     \subsubsection*{Optionale Matrixdarstellung}
-        Definieren wir eine Zusammenfassung der Vektorkomponenten von $u(t)\in(\R^3)^2$ zu einer Funktion $U:\R\to\R^{3\cdot 2}$ als
-        \[
-            U:t\mapsto \bigl(u_1^*(t)_1,u_1^*(t)_2,u_1^*(t)_3,u_2^*(t)_1,u_2^*(t)_2,u_2^*(t)_3\bigr),
-        \]
-        so können wir die rechte Seite $F=J^T\cdot\nabla H:\R\times\R^{2\cdot 3}\to\R^{2\cdot 3}$ durch die Matrix
-        \[
-            J:=\begin{pmatrix}
-                0 & I_{3} \\
-                -I_{3} & 0
-            \end{pmatrix}
-        \]
-        darstellen.
-
-
+        \subfile{Grundlagen/1-7-Matrixdarstellung.tex}
 
 \end{document}

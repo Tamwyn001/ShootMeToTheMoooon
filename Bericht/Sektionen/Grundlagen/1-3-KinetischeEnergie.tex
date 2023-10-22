@@ -1,0 +1,41 @@
+\documentclass{subfiles}
+
+\begin{document}
+    Als kinetische Energie des \underline{Gesamtsystems} betrachten wir allgemein die Summe der einzelnen kinetischen Energien der beteiligten Körper als
+    \[
+        T_G(t,(q(t),q'(t))) = \sum_{i\in[2]}\frac12\cdot m_i\cdot\dabs{((f_{S\to C}\circ Q)_i^*)'(t)}{2}^2 + \frac12\cdot m_S\cdot\dabs{(f_{S\to C}\circ q)'(t)}{2}^2.
+    \]
+    Dabei ist $f_{S\to C}:= f_{C\to S}^{-1}$ die Rücktransformation von Kugelkoordinaten auf kartesische Koordinaten. Unsere generalisierten Koordinaten beziehen sich jedoch nur auf eine Betrachtung des Satelliten, dessen kinetische Energie ist also
+    \[
+        T(t,(q(t),q'(t))) = \frac12\cdot m_S\cdot\dabs{(f_{S\to C}\circ q)'(t)}{2}^2.
+    \] 
+    Wir wollen wieder einen möglichst expliziten Ausdruck finden und gehen von $x(t)=q_1^*(t)\cdot e_1(q(t))$ aus. Für die Geschwindigkeit ergibt sich 
+    \begin{align*}
+        x'(t) &= \nbra{\dv{t} q_1^*(t)}\cdot e_1(q(t)) + q_1^*(t)\cdot\nbra{\dv{t} e_1(q(t))}.
+    \end{align*}
+    Die totale Zeitableitung von $e_1$ berechnen wir stur explizit
+    \begin{align*}
+        \dv{t} e_1(q(t)) &= \begin{pmatrix}\dv{t} \sin(q_2^*(t))\cdot\cos(q_3^*(t))\\\dv{t} \sin(q_2^*(t)\cdot\sin(q_3^*(t)))\\\dv{t} \cos(q_2^*(t))\end{pmatrix}\\
+        &= \begin{pmatrix}\nbra{\dv{t} \sin(q_2^*(t))}\cdot\cos(q_3^*(t)) + \sin(q_2^*(t))\cdot\nbra{\dv{t}\cos(q_3^*(t))}\\\nbra{\dv{t} \sin(q_2^*(t))}\cdot\sin(q_3^*(t)) + \sin(q_2^*(t))\cdot\nbra{\dv{t}\sin(q_3^*(t))}\\-q'(t)_2\cdot \sin(q_2^*(t))\end{pmatrix}\\
+        &= \begin{pmatrix}q'(t)_2\cdot\cos(q_2^*(t))\cdot\cos(q_3^*(t)) - \sin(q_2^*(t))\cdot q'(t)_3\cdot\sin(q_3^*(t))\\q'(t)_2\cdot \cos(q_2^*(t))\cdot\sin(q_3^*(t)) + \sin(q_2^*(t))\cdot q'(t)_3\cdot \cos(q_3^*(t))\\-q'(t)_2\cdot \sin(q_2^*(t))\end{pmatrix}\\
+        &= q'(t)_2\cdot \begin{pmatrix}\cos(q_2^*(t))\cdot\cos(q_3^*(t))\\ \cos(q_2^*(t))\cdot\sin(q_3^*(t))\\ -\sin(q_2^*(t))\end{pmatrix} 
+        + q'(t)_3\cdot\sin(q_2^*(t))\cdot\begin{pmatrix}-\sin(q_3^*(t))\\ \cos(q_3^*(t))\\ 0\end{pmatrix}\\
+        &= q'(t)_3\cdot e_2(q(t)) + q'(t)_3\cdot\sin(q_2^*(t))\cdot e_3(q(t)).
+    \end{align*}
+    Wir halten als Zwischenstand fest 
+    \begin{align*}
+        x'(t) &= q'(t)_1\cdot e_1(q(t)) + q_1^*(t)\cdot q'(t)_3\cdot e_2(q(t)) + q_1^*(t)\cdot q'(t)_3\cdot\sin(q_2^*(t))\cdot e_3(q(t)).
+    \end{align*}
+    Nun ergibt sich als Normquadrat dieser Geschwindigkeit wegen der euklidischen Orthonormalität der Tangenteneinheitsvektoren
+    \begin{align*}
+        \dabs{x'(t)}{2}^2 &= \dabs{q'(t)_1\cdot e_1(q(t)) + q_1^*(t)\cdot q'(t)_3\cdot e_2(q(t)) + q_1^*(t)\cdot q'(t)_3\cdot\sin(q_2^*(t))\cdot e_3(q(t))}_2^2\\
+        &= q'(t)_1^2 +q_1^*(t)^2\cdot q'(t)_3^2 + q_1^*(t)^2\cdot q'(t)_3^2\cdot\sin(q_2^*(t))^2
+    \end{align*}
+    \begin{ergebnis}
+        Damit erhalten wir einen ausgeschriebenen Ausdruck für die kinetische Energie:
+        \[
+            T(t,q(t),q'(t)) = \frac{1}{2}\cdot m_S\cdot\nbra{q'(t)_1^2 + q_1^*(t)^2\cdot q'(t)_2^2 + q_1^*(t)^2\cdot q'(t)_3^2\cdot\sin(q_2^*(t))^2}.
+        \]
+    \end{ergebnis}
+
+\end{document}

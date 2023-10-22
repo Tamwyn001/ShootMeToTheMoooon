@@ -1,0 +1,13 @@
+\documentclass{subfiles}
+
+\begin{document}
+    Wir konzentrieren uns auf ein Dreikörperproblem, bei welchem eine Masse (diejenige des Satelliten) im Vergleich zu den anderen beiden Körpermassen der Erde und des Mondes klein ist. Als Ortskoordinaten der drei Körper verwenden wir Wege der Form 
+    \[
+        q:\R\to\R^3,\qquad t\mapsto \bigl((f_{C\to S}\circ x)_1^*(t),(f_{C\to S}\circ x)_2^*(t),(f_{C\to S}\circ x)_3^*(t)\bigr),
+    \]
+    wobei $x:\R\to\R^3$ unser tatsächlicher Aufenthaltsort in kartesischen Koordinaten und $f_{C\to S}$ unsere Kugelkoordinatentransformation (\emph{cartesian to spherical}) ist. Wir legen die Erde mit Zentrum im Ursprung fest und setzen ihren Radius auf $r_E:=6300\si{\kilo\metre}$, sodaß unser $x_0$ Element des Randes $\delta B_{r_E}:=\{x\in\R^3:\dabs{x}{3} = r_A\}$ sein wird. Ziel ist das Erreichen des Ortes
+    \[
+        x_1\in B_{r_M,d}:=(B_{r_M}+d):=\{x + d\in\R^3:\dabs{x}{2} = r_M\}
+    \]
+    festgelegt durch den Zentrumsvektor $d$ des Mondes zum Erdzentrum und den Mondradius $r_M:=1 737,4\si{\kilo\metre}$ (0,273 Erde).
+\end{document}

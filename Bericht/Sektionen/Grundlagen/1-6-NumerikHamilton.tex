@@ -1,0 +1,60 @@
+\documentclass{subfiles}
+
+\begin{document}
+    Um die Theorie der Numerik auf unser Problem anwenden zu können, müssen wir noch eine \emph{rechte Seite} definieren. Wir finden diese über die \emph{Hamiltonischen Bewegungsgleichungen}, welche durch die Richtungsableitungen in $q(t)$ und $p(t)$ gegeben und in einem Tupel zusammengefasst werden. Hierzu bestimmen wir zunächst
+    \begin{align*}
+        \dv{a}H(t,(a,p(t))) &= \dv{a}\Biggl(
+                \frac{p(t)^2}{2m_S} + V(t,a)
+        \Biggr) = \dv{a}V(t,a),\numberthis\label{eq:dHa}\tag{dHa}\\
+        \dv{b}H(t,(q(t),b)) &= \dv{b}\Biggl(
+                \frac{b^2}{2m_S} + V(t,q(t))
+        \Biggr) = \frac{b}{m_S} + \ubra{\dv{b}V(t,q(t))}{=0}.\numberthis\label{eq:dHb}\tag{dHb}
+    \end{align*}    
+    An dieser Stelle müssen wir noch einmal arbeiten, um die Ableitung des Potentials in $q(t)$ zu bestimmen, da es sich um eine Verkettung höheren Grades handelt. Definiere $g_i:=\bigl(\dabs{Q_i(t)-a}{2}\bigr)_{a\in\R^3}$, dann ist zunächst
+    \[
+        \dv{a}V(t,a) = G\cdot\sum_{i\in[2]}\dv{a}\frac{m_i\cdot m_S}{g(a)} = G\cdot\sum_{i\in[2]}m_i\cdot m_S\cdot\dv{a}\frac{1}{g_i(a)},
+    \]
+    sodaß wir durch Kenntnis der Ableitung von inv auf $\R$, gegeben durch $d$inv$(x)(1) = ($inv$\circ q_2)(x)$ mit $q_2$ als Quadratmonom ferner schreiben können:
+    \[
+        \dv{a}\frac{1}{g_i(a)} = d(\inv\circ g_i)(a)(1) = (\inv\circ q_2\circ g_i)(a)\cdot dg_i(a)(1) = \frac{1}{g_i(a)^2}\cdot \dv{a}g_i(a).  
+    \]
+    % Dabei verstecken wir in $h_a = (0,(1,0))$ die verwendete Ableitungsrichtung gemäß der tatsächlichen Argumente von $H$. 
+    Ferner ist $dg_i(x)(h)$ für $h\in\R^3$ zu evaluieren (wir erinnern uns, daß unser $a$ einen \emph{Platzhalter} für den später eingesetzten Wegpunkt $q(t)\in\R^3$ darstellt), was wir durch $l_{i,j}:=\bigl((Q_i(t)_j - x)^2\bigr)_{x\in\R}$ fortsetzen zu
+    \[
+        dg_i(a)(h) = \sum_{k\in[3]}h_k\cdot dg_i(a)(\mbbEins_k), \qquad\mbbEins_{k}:=\fdef{\begin{cases}
+            1 & i = k\\
+            0 & \text{sonst}
+        \end{cases}}{i\in[3]}
+    \]
+    sodaß die Ableitung von $g$ für die Richtung $h=1\in\R^3$ in der $k$-ten Komponente der obigen Summe zusammen mit der Quadratnorm $\dabs{x}{2} := \bigl(x_1^2 + x_2^2 + x_3^2\bigr)^{1/2}$ die Form 
+    \[
+        dg_i(a)(\mbbEins_k) = \dv{s}\left.\nbra{l_{i,k}(a_k + s) + \sum_{j\in[3]\setminus{\{k\}}}l_{i,j}(a_j)}^{\frac12}\right|_{s=0}
+    \]
+    besitzt, also beispielsweise für $k=1$ gerade
+    \[
+        dg_i(a)(\mbbEins_1) = \dv{a_1}\nbra{\ubra{(Q_i(t)_1 - a_1)^2}{l_{i,1}(a_1)} + \ubra{(Q_i(t)_2 - a_2)^2}{l_{i,2}(a_2)} + \ubra{(Q_i(t)_3 - a_3)^2}{l_{i,3}(a_3)}}^{\frac12}.
+    \]
+    Leiten wir diese erste Richtung speziell ab, so erhalten wir für $W_i(a) = \sum_{k\in[3]}l_{i,k}(a_k)$ als Zusammenfassung des Wurzelinhaltes
+    \[
+        \dv{s}\left.\sqrt{W_i(a + s\cdot\mbbEins_1)}\right|_{s=0} = \ubra{\frac{1}{\sqrt{W_i(a)}}}{=\dabs{Q_i(t) - a}{2}^{-1}}\cdot\dv{a_1}l_{i,1}(a_1) = \ubra{\frac{1}{\dabs{Q_i(t) - a}{2}}}{= 1/g_i(a)}\cdot 2\cdot (Q_i(t)_1 - a_1). 
+    \]
+    Es findet sich so durch die Symmetrie der symbolisch gesammelte Ableitungsausdruck $\dv{a_k}g_i(a) = 2\cdot (Q_i(t)_k - a_k) / g_i(a)$. Die Zusammenfassung derer ist wiederum der Ableitungstensor von $g_i$ in $a$:
+    \[
+        g_i'(a) = \dv{a}g_i(a) = \frac{2}{g_i(a)}\cdot\fdef{Q_i(t)_k - a_k}{k\in[3]},
+    \]
+    sodaß sich unsere anfangs gesuchte Ableitung des Potentials in $a$ zu 
+    \[
+        \dv{a}V(t,a) = G\cdot m_S\cdot\sum_{i\in[2]}m_i\cdot\frac{2}{g_i(a)^3}\cdot\fdef{Q_i(t)_k - a_k}{k\in[3]}\numberthis\label{eq:dV}\tag{dV}
+    \]
+    zusammensetzt. Damit erhalten wir die Hamiltonischen Bewegungsgleichungen und gleichzeitig durch die Defintion $F(t,u(t)):=\bigl(-\dv{b}H(t,(u_1^*(t),b))_{b=u_2^*(t)},\dv{a}H(t,(a,u_2^*(t)))|_{a=u_1^*(t)}\bigr)$ die rechte Seite des Hamiltonsystems:
+    \begin{align*}
+        F(t,u(t)) = \begin{pmatrix}
+            -u_2^*(t)/m_S\\
+            \dv{a}V(t,a)|_{a=u_1^* (t)}
+        \end{pmatrix}, \qquad u(t) = \begin{pmatrix}
+            q(t)\\
+            p(t)
+        \end{pmatrix}.
+    \end{align*}
+
+\end{document}

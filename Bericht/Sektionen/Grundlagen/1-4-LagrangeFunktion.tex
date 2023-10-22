@@ -1,0 +1,15 @@
+\documentclass{subfiles}
+
+\begin{document}
+    Der Lagrangeformalismus beschreibt den Unterschied der \emph{kinetischen} zur \emph{potentiellen Energie} des Systems für einen konservatives Kraftfeld und holonome Zwangsbedingungen, wenn es welche gibt, was hier nicht der Fall ist.
+
+    Zusammen mit dem oben bereits bestimmten Potential $V$ erhalten wir durch die Form $L = T - V\circ\phi$ mit der Argumentauswahlfunktion $\phi:=\bigl((t,x_1)\bigr)_{(t,x)}$ den Lagrangian
+    \[
+        L:\R\times\bigl(\R^3\bigr)^2\to\R,\qquad \bigl(t,(q(t),q'(t))\bigr)\mapsto \frac12\cdot m_S\cdot\dabs{q'(t)}{^2} - G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - q(t)}{2}}.
+    \]
+    Liegen nichtkonstante Wege $Q_i^*$ vor, so wird die Strategie unverändert bleiben, da eine Ableitung in Richtung $q'(t)$ vorliegt, welche nicht in der Definition von $Q$ enthalten ist, sodaß allgemeiner gelten wird
+    \[
+        L:\bigl(t,(q(t),q'(t))\bigr)\mapsto T\bigl(t,(q(t),q'(t))\bigr) - (V\circ\psi)\bigl(t,(q(t),q'(t))\bigr),
+    \]
+    wobei dann die Summanden in der Implementierung einzeln vorberechnet werden müssen.
+\end{document}
