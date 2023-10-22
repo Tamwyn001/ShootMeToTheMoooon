@@ -31,7 +31,7 @@
     Dabei sind $a,b\in\R$ Bahnparameter und $\Phi_M: \R\to \R$ eine beliebige stetig differenzierbare Phasenfunktion. Eingesetzt in die Potentialformel ergibt sich
     \begin{align*}
         V(t,q(t)) &= G\cdot m_1\cdot m_S\cdot \dabs{q_1^*(t)\cdot e_1(q(t))}{2}^{-1}\\
-        &+ m_2\cdot m_S\cdot\dabs{q_1^*(t)\cdot e_1(q(t)) - \begin{pmatrix}a\cdot\cos(\Phi_M(t))\\b\cdot \sin(\Phi_M(t))\end{pmatrix}}{2}^{-1}
+        &+ m_2\cdot m_S\cdot\dabs{q_1^*(t)\cdot e_1(q(t)) - \begin{pmatrix}a\cdot\cos(\Phi_M(t))\\b\cdot \sin(\Phi_M(t))\\ 0\end{pmatrix}}{2}^{-1}
     \end{align*}
     Wir behandeln beide Summanden separat. Für den ersten ergibt sich unter Ausnutzung der Normiertheit von $e_1(q(t))$
     \begin{align*}
@@ -41,14 +41,14 @@
     \begin{align*}
         &\dabs{q_1^*(t)\cdot e_1(q(t)) - \begin{pmatrix}a\cdot\cos(\Phi_M(t))\\b\cdot \sin(\Phi_M(t))\end{pmatrix}}{2}^{-1}\\
         =& \dabs{q_1^*(t)\cdot \begin{pmatrix}\sin(q_2^*(t))\cdot\cos(q_3^*(t))\\ \sin(q_2^*(t))\cdot\sin(q_3^*(t))\\ \cos(q_2^*(t))\end{pmatrix} - \begin{pmatrix}a\cdot\cos(\Phi_M(t))\\b\cdot \sin(\Phi_M(t))\\ 0\end{pmatrix}}{2}^{-1}\\
-        =& \dabs{\begin{pmatrix}q_1^*(t)\cdot \sin(q_2^*(t))\cdot\cos(q_3^*(t)) - a\cdot\cos(\Phi_M(t))\\ q_1^*(t)\cdot\sin(q_2^*(t))\cdot\sin(q_3^*(t)) - b\cdot\sin(\Phi_M(t))\end{pmatrix}}{2}^{-1}
+        =& \dabs{\begin{pmatrix}q_1^*(t)\cdot \sin(q_2^*(t))\cdot\cos(q_3^*(t)) - a\cdot\cos(\Phi_M(t))\\ q_1^*(t)\cdot\sin(q_2^*(t))\cdot\sin(q_3^*(t)) - b\cdot\sin(\Phi_M(t))\\ 0\end{pmatrix}}{2}^{-1}
     \end{align*} 
 
     \begin{ergebnis}
         Wir halten für das Potential fest:
         \begin{align*}
             V(t,q(t)) &= G\cdot m_1\cdot m_S\cdot q_1^*(t)^{-1}\\
-            &+ G\cdot m_2\cdot m_S\cdot \dabs{\begin{pmatrix}q_1^*(t)\cdot \sin(q_2^*(t))\cdot\cos(q_3^*(t)) - a\cdot\cos(\Phi_M(t))\\ q_1^*(t)\cdot\sin(q_2^*(t))\cdot\sin(q_3^*(t)) - b\cdot\sin(\Phi_M(t))\end{pmatrix}}{2}^{-1}.
+            &+ G\cdot m_2\cdot m_S\cdot \dabs{\begin{pmatrix}q_1^*(t)\cdot \sin(q_2^*(t))\cdot\cos(q_3^*(t)) - a\cdot\cos(\Phi_M(t))\\ q_1^*(t)\cdot\sin(q_2^*(t))\cdot\sin(q_3^*(t)) - b\cdot\sin(\Phi_M(t))\\ 0\end{pmatrix}}{2}^{-1}.
         \end{align*}
     \end{ergebnis}
 

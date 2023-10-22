@@ -10,7 +10,13 @@
                 \frac{b^2}{2m_S} + V(t,q(t))
         \Biggr) = \frac{b}{m_S} + \ubra{\dv{b}V(t,q(t))}{=0}.\numberthis\label{eq:dHb}\tag{dHb}
     \end{align*}    
-    An dieser Stelle müssen wir noch einmal arbeiten, um die Ableitung des Potentials in $q(t)$ zu bestimmen, da es sich um eine Verkettung höheren Grades handelt. Definiere $g_i:=\bigl(\dabs{Q_i(t)-a}{2}\bigr)_{a\in\R^3}$, dann ist zunächst
+    An dieser Stelle müssen wir noch einmal arbeiten, um die Ableitung des Potentials in $q(t)$ zu bestimmen, da es sich um eine Verkettung höheren Grades handelt. Definiere
+    \begin{align*}
+        f &:= \nbra{\begin{pmatrix}a_1\cdot \sin(a_2)\cdot\cos(a_3) - a\cdot\cos(\Phi_M(t))\\ a_1\cdot\sin(a_2)\cdot\sin(a_3) - b\cdot\sin(\Phi_M(t))\\ 0\end{pmatrix}}_{a\in\R^3}\\
+        g:=\nbra{\dabs{a}{2}\bigr}_{a\in\R^3}
+    \end{align*}
+
+    $g_i:=\bigl(\dabs{Q_i(t)-a}{2}\bigr)_{a\in\R^3}$, dann ist zunächst
     \[
         \dv{a}V(t,a) = G\cdot\sum_{i\in[2]}\dv{a}\frac{m_i\cdot m_S}{g(a)} = G\cdot\sum_{i\in[2]}m_i\cdot m_S\cdot\dv{a}\frac{1}{g_i(a)},
     \]
