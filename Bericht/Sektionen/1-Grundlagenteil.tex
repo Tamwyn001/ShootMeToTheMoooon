@@ -20,6 +20,50 @@
         \]
         festgelegt durch den Zentrumsvektor $d$ des Mondes zum Erdzentrum und den Mondradius $r_M:=1 737,4\si{\kilo\metre}$ (0,273 Erde).
 
+    \subsection*{Kinetische Energie in Kugelkoordinaten}
+        Als kinetische Energie des \underline{Gesamtsystems} betrachten wir allgemein die Summe der einzelnen kinetischen Energien der beteiligten Körper als
+        \[
+            T_G(t,(q(t),q'(t))) = \sum_{i\in[2]}\frac12\cdot m_i\cdot\dabs{((f_{S\to C}\circ Q)_i^*)'(t)}{2}^2 + \frac12\cdot m_S\cdot\dabs{(f_{S\to C}\circ q)'(t)}{2}^2.
+        \]
+        Dabei ist $f_{S\to C}:= f_{C\to S}^{-1}$ die Rücktransformation von Kugelkoordinaten auf kartesische Koordinaten. Unsere generalisierten Koordinaten beziehen sich jedoch nur auf eine Betrachtung des Satelliten, dessen kinetische Energie ist also
+        \[
+            T(t,(q(t),q'(t))) = \frac12\cdot m_S\cdot\dabs{(f_{S\to C}\circ q)'(t)}{2}^2.
+        \] 
+        Wir wollen noch einen möglichst expliziten Ausdruck finden. Schreiben wir zuerst $f_{S\to C}\circ q = x$ in eine nützlichere Form. Mit den \textit{Tangenteneinheitsvektoren} in Kugelkoordinaten,
+        \begin{align*}
+            e_1(q(t)) &= \begin{pmatrix}\sin(q_2^*(t))\cdot\cos(q_3^*(t))\\ \sin(q_2^*(t))\cdot\sin(q_3^*(t))\\ \cos(q_2^*(t))\end{pmatrix},\qquad
+            e_2(q(t)) = \begin{pmatrix}\cos(q_2^*(t))\cdot\cos(q_3^*(t))\\ \cos(q_2^*(t))\cdot\sin(q_3^*(t))\\ -\sin(q_2^*(t))\end{pmatrix},\\
+            e_3(q(t)) &= \begin{pmatrix}-\sin(q_3^*(t))\\ \cos(q_3^*(t))\\ 0\end{pmatrix},
+        \end{align*}
+        gelingt dies in Form von $x(t) = q_1^*(t)\cdot e_1(q(t))$. Die Vektoren wurden dabei als Funktionen $e_i: \R^3\to \R^3$ modeliert. Für die Geschwindigkeit ergibt sich 
+        \begin{align*}
+            x'(t) &= \nbra{\dv{t} q_1^*(t)}\cdot e_1(q(t)) + q_1^*(t)\cdot\nbra{\dv{t} e_1(q(t))}.
+        \end{align*}
+        Die totale Zeitableitung von $e_1$ berechnen wir stur explizit
+        \begin{align*}
+            \dv{t} e_1(q(t)) &= \begin{pmatrix}\dv{t} \sin(q_2^*(t))\cdot\cos(q_3^*(t))\\\dv{t} \sin(q_2^*(t)\cdot\sin(q_3^*(t)))\\\dv{t} \cos(q_2^*(t))\end{pmatrix}\\
+            &= \begin{pmatrix}\nbra{\dv{t} \sin(q_2^*(t))}\cdot\cos(q_3^*(t)) + \sin(q_2^*(t))\cdot\nbra{\dv{t}\cos(q_3^*(t))}\\\nbra{\dv{t} \sin(q_2^*(t))}\cdot\sin(q_3^*(t)) + \sin(q_2^*(t))\cdot\nbra{\dv{t}\sin(q_3^*(t))}\\-q'(t)_2\cdot \sin(q_2^*(t))\end{pmatrix}\\
+            &= \begin{pmatrix}q'(t)_2\cdot\cos(q_2^*(t))\cdot\cos(q_3^*(t)) - \sin(q_2^*(t))\cdot q'(t)_3\cdot\sin(q_3^*(t))\\q'(t)_2\cdot \cos(q_2^*(t))\cdot\sin(q_3^*(t)) + \sin(q_2^*(t))\cdot q'(t)_3\cdot \cos(q_3^*(t))\\-q'(t)_2\cdot \sin(q_2^*(t))\end{pmatrix}\\
+            &= q'(t)_2\cdot \begin{pmatrix}\cos(q_2^*(t))\cdot\cos(q_3^*(t))\\ \cos(q_2^*(t))\cdot\sin(q_3^*(t))\\ -\sin(q_2^*(t))\end{pmatrix} 
+            + q'(t)_3\cdot\sin(q_2^*(t))\cdot\begin{pmatrix}-\sin(q_3^*(t))\\ \cos(q_3^*(t))\\ 0\end{pmatrix}\\
+            &= q'(t)_3\cdot e_2(q(t)) + q'(t)_3\cdot\sin(q_2^*(t))\cdot e_3(q(t)).
+        \end{align*}
+        Wir halten als Zwischenstand fest 
+        \begin{align*}
+            
+        \end{align*}
+        Nun ergibt sich als Normquadrat dieser Geschwindigkeit wegen der euklidischen Orthonormalität der Tangenteneinheitsvektoren
+        \begin{align*}
+            \dabs{x'(t)}^2_2 &= \dabs{x'(t)}^2_2
+        \end{align*}
+
+        \begin{ergebnis}
+            Für die kinetische Energie gilt
+            \[
+                T(t,q(t),q'(t)) = \frac{1}{2}\cdot m_S\cdot\nbra{q'(t)_1^2 + q(t)_1^2\cdot q'(t)_2^2 + q(t)_1^2\cdot q'(t)_3^2\cdot\sin(q(t)_2)^2}.
+            \]
+        \end{ergebnis}
+
     \subsection*{Potentialbeschreibung}
         Für das \emph{Gravitationspotential} des Systems wählen wir zwei Newtonsche Potentiale an den jeweiligen Zentren des Mondes und der Erde. Allgemein schreiben wir:
         \[
@@ -34,12 +78,14 @@
         Wir lassen hier bewusst die Masse des Satelliten selbst aus, da wir sonst eine Singularität an jeder Stelle durch $1/\dabs{q(t)-q(t)}{2}$ erhielten. 
 
     \subsection*{Lagrange Funktion}
-        Der Lagrangeformalismus beschreibt den Unterschied der \emph{kinetischen} zur \emph{potentiellen Energie} des Systems für einen konservatives Kraftfeld und holonome Zwangsbedingungen, wenn es welche gibt, was hier nicht der Fall ist. Als kinetische Energie betrachten wir allgemein die Summe der einzelnen kinetischen Energien der beteiligten Körper als
+        Der Lagrangeformalismus beschreibt den Unterschied der \emph{kinetischen} zur \emph{potentiellen Energie} des Systems für einen konservatives Kraftfeld und holonome Zwangsbedingungen, wenn es welche gibt, was hier nicht der Fall ist.
+        % Als kinetische Energie betrachten wir allgemein die Summe der einzelnen kinetischen Energien der beteiligten Körper als
         \[
             T(t,(q(t),q'(t))) = \sum_{i\in[2]}\frac12\cdot m_i\cdot\dabs{(Q_i^*)'(t)}{2}^2 + \frac12\cdot m_S\cdot\dabs{q'(t)}{2}^2.
         \]
         % -> Sind die Q(t) bzw. q(t) hier richtig implementiert?
-        Unter der Annahme ruhender Erde und Mondes können wir $T_0(t,(q(t),q'(t)))$ über $m_S\cdot \dabs{q'(t)}{2}^2 / 2$ beschreiben. Zusammen mit dem oben bereits bestimmten Potential $V$ erhalten wir durch die Form $L = T - V\circ\phi$ mit der Argumentauswahlfunktion $\phi:=\bigl((t,x_1)\bigr)_{(t,x)}$ den Lagrangian
+        % Unter der Annahme ruhender Erde und Mondes können wir $T_0(t,(q(t),q'(t)))$ über $m_S\cdot \dabs{q'(t)}{2}^2 / 2$ beschreiben.
+        Zusammen mit dem oben bereits bestimmten Potential $V$ erhalten wir durch die Form $L = T - V\circ\phi$ mit der Argumentauswahlfunktion $\phi:=\bigl((t,x_1)\bigr)_{(t,x)}$ den Lagrangian
         \[
             L:\R\times\bigl(\R^3\bigr)^2\to\R,\qquad \bigl(t,(q(t),q'(t))\bigr)\mapsto \frac12\cdot m_S\cdot\dabs{q'(t)}{^2} - G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - q(t)}{2}}.
         \]
