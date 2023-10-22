@@ -12,15 +12,34 @@
     \begin{align*}
         \dv{s}L\left.\bigl(t,(q(t),q'(t) + s\cdot\mbbEins_1)\bigr)\right|_{s=0} &= \frac12\cdot m_S\cdot\dv{b_1}b_1^2|_{b_1 = q'(t)_1}\\
         &= m_S\cdot q'(t)_1, \\
-        \dv{s}L\left.\bigl(t,(q(t),q'(t) + s\cdot\mbbEins_2)\bigr)\right|_{s=0} &= \frac12\cdot m_S\cdot q(t)_2^2\cdot\dv{b_2}b_2^2|_{b_2 = q'(t)_2} \\
-        &= m_S\cdot q(t)_2\cdot q'(t)_2,\\
-        \dv{s}L\left.\bigl(t,(q(t),q'(t) + s\cdot\mbbEins_3)\bigr)\right|_{s=0} &= \frac12\cdot m_S\cdot q(t)_3^2\cdot q(t)_1^2\cdot\sin(q(t)_2)^2\cdot\dv{b_3}b_3^2|_{b_3 = q'(t)_3} \\
-        &= m_S\cdot q(t)_3\cdot q(t)_1^2\cdot\sin(q(t)_2)^2\cdot q'(t)_3.
+        \dv{s}L\left.\bigl(t,(q(t),q'(t) + s\cdot\mbbEins_2)\bigr)\right|_{s=0} &= \frac12\cdot m_S\cdot q(t)_1^2\cdot\dv{b_2}b_2^2|_{b_2 = q'(t)_2} \\
+        &= m_S\cdot q(t)_1^2\cdot q'(t)_2,\\
+        \dv{s}L\left.\bigl(t,(q(t),q'(t) + s\cdot\mbbEins_3)\bigr)\right|_{s=0} &= \frac12\cdot m_S\cdot q(t)_1^2\cdot\sin(q(t)_2)^2\cdot\dv{b_3}b_3^2|_{b_3 = q'(t)_3} \\
+        &= m_S\cdot q(t)_1^2\cdot\sin(q(t)_2)^2\cdot q'(t)_3.
     \end{align*}
-
-    und Substitution $q'(t) = p(t) / m_S$ den Hamiltonian der Form 
+    Invertieren wir nun die einzelnen Komponenten, so können wir die Ableitung der verallgemeinerten Koordinaten mittels des Argumentes $\bigl(t,(q(t),p(t))\bigr)$ ausdrücken. Wir erhalten
     \[
-        H(t,(q(t),p(t))) = \frac{p(t)^2}{2m_S} + V(t,q(t))
+        q'\bigl(t,(q(t),p(t))\bigr) = \frac{1}{m_S}\cdot\left(
+            p(t)_1,
+            \frac{p(t)_2}{q(t)_1^2},
+            \frac{p(t)_3}{q(t)_1^2\cdot\sin(q(t)_2)^2}
+        \right).
     \]
-    erhalten.
+    Setzen wir dies für die Vorkommnisse von $q'(t)$ im Lagrangian $L$ ein, so erhalten wir den Hamolonian $H$ in der Form
+    \[
+        H\bigl(t,(q(t),p(t))\bigr) = T\bigl(t,(q(t),p(t))\bigr) + V\bigl(t,q(t)\bigr),
+    \]
+    wobei nach obiger Defintion für den kinetischen Energieanteil gilt
+    \begin{align*}
+        T(t,(q(t),p(t))) &= \frac{1}{2\cdot m_S}\cdot\nbra{
+            p(t)_1^2 + \nbra{
+                \frac{p(t)_2}{q(t)_1^2}
+            }^2\cdot q(t)_1^2 + \nbra{
+                \frac{p(t)_3}{q(t)_1^2\cdot\sin(q(t)_2)^2}
+            }^2\cdot q(t)_1^2\cdot\sin(q(t)_2)^2
+        } \\
+        &= \frac{1}{2\cdot m_S}\cdot\left(
+            p(t)_1^2 + \frac{p(t)_2^2}{q(t)_1^2} + \frac{p(t)_3^2}{q(t)_1^2\cdot\sin(q(t)_2)^2}
+        \right).
+    \end{align*}
 \end{document}
