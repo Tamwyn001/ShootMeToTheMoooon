@@ -1,15 +1,23 @@
 \documentclass{subfiles}
 
 \begin{document}
-    Um die Hamiltonfunktion aufstellen zu können, braucht es eine Transformation der Form $p(t):=\dv{b}L(t,(q(t),b))|_{b=q'(t)}$, sodaß wir durch 
+    Um die Hamiltonfunktion aufstellen zu können, braucht es eine Transformation der Form $p(t):=\dv{b}L(t,(q(t),b))|_{b=q'(t)}$.
+    Wir müssen nach Form unserer kinetischen Energie die Ableitungen komponentenweise betrachten. Wir notieren zunächst den Ableitungsvektor
+    \[
+        \dv{b}L\left.\bigl(t,(q(t),b)\bigr)\right|_{b=q'(t)} = \fdef{
+            \dv{s}L\left.\bigl(t,(q(t),q'(t) + s\cdot\mbbEins_k)\bigr)\right|_{s=0} \\
+        }{k\in[3]}.
+    \]
+    Somit erhalten wir konkret:
     \begin{align*}
-        \dv{b}L(t,(q(t),b))|_{b=q'(t)} &= \dv{b}\left.\Biggl(
-            T\bigl(t,(q(t),q'(t))\bigr) - G\cdot\sum_{i\in[2]}\frac{m_i\cdot m_S}{\dabs{Q_i^*(t) - q(t)}{2}}    
-        \Biggr)\right|_{b=q'(t)} \\
-        &= \dv{b}T\bigl(t,(q(t),b)\bigr)|_{b=q'(t)} \\
-        &= \sum_{i\in[2]}\dv{b}\left.\biggl(\frac12\cdot m_i\cdot\dabs{(Q')_i^*(t)}{2}^2\biggr)\right|_{b=q'(t)} + \dv{b}\left.\biggl(\frac12\cdot m_S\cdot\dabs{b}{2}^2\biggr)\right|_{b=q'(t)} \\
-        &\stackrel{?}{=}m_S\cdot \dabs{q'(t)}{2}
+        \dv{s}L\left.\bigl(t,(q(t),q'(t) + s\cdot\mbbEins_1)\bigr)\right|_{s=0} &= \frac12\cdot m_S\cdot\dv{b_1}b_1^2|_{b_1 = q'(t)_1}\\
+        &= m_S\cdot q'(t)_1, \\
+        \dv{s}L\left.\bigl(t,(q(t),q'(t) + s\cdot\mbbEins_2)\bigr)\right|_{s=0} &= \frac12\cdot m_S\cdot q(t)_2^2\cdot\dv{b_2}b_2^2|_{b_2 = q'(t)_2} \\
+        &= m_S\cdot q(t)_2\cdot q'(t)_2,\\
+        \dv{s}L\left.\bigl(t,(q(t),q'(t) + s\cdot\mbbEins_3)\bigr)\right|_{s=0} &= \frac12\cdot m_S\cdot q(t)_3^2\cdot q(t)_1^2\cdot\sin(q(t)_2)^2\cdot\dv{b_3}b_3^2|_{b_3 = q'(t)_3} \\
+        &= m_S\cdot q(t)_3\cdot q(t)_1^2\cdot\sin(q(t)_2)^2\cdot q'(t)_3.
     \end{align*}
+
     und Substitution $q'(t) = p(t) / m_S$ den Hamiltonian der Form 
     \[
         H(t,(q(t),p(t))) = \frac{p(t)^2}{2m_S} + V(t,q(t))
