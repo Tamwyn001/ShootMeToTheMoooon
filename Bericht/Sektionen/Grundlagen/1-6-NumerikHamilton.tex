@@ -12,14 +12,40 @@
     \end{align*}    
     An dieser Stelle müssen wir noch einmal arbeiten, um die Ableitung des Potentials in $q(t)$ zu bestimmen, da es sich um eine Verkettung höheren Grades handelt. Definiere
     \begin{align*}
-        f &:= \nbra{\begin{pmatrix}a_1\cdot \sin(a_2)\cdot\cos(a_3) - a\cdot\cos(\Phi_M(t))\\ a_1\cdot\sin(a_2)\cdot\sin(a_3) - b\cdot\sin(\Phi_M(t))\\ 0\end{pmatrix}}_{a\in\R^3}\\
-        g:=\nbra{\dabs{a}{2}\bigr}_{a\in\R^3}
+        f &:= \nbra{\begin{pmatrix}s_1\cdot \sin(s_2)\cdot\cos(s_3) - a\cdot\cos(\Phi_M(t))\\ s_1\cdot\sin(s_2)\cdot\sin(s_3) - b\cdot\sin(\Phi_M(t))\\ 0\end{pmatrix}}_{s\in\R^3},\\
+        g &:= \nbra{\dabs{s}{2}\bigr}_{s\in\R^3},
     \end{align*}
+    sodass $V(t,q(t)) = G\cdot m_1\cdot m_S\cdot q_1^*(t)^{-1} + G\cdot m_2\cdot m_S\cdot g(f(q(t)))^{-1}$. Wir berechnen folgens die partiellen Ableitungen der Potentialfunktion.
+    \begin{align*}
+        \dv{s}V\left.\bigl(t,(q(t) + s\cdot\mbbEins_1)\bigr)\right|_{s=0} &= -G\cdot m_1\cdot m_S\cdot q_1^*(t)^{-2} + G\cdot m_2\cdot m_S\cdot \dv{a}g(f(q(t) + a\cdot\mbbEins_1))^{-1}\vert_{a=0}.
+    \end{align*}
+    Der zweite Summand berechnet sich mit der Kettenregel:
+    \begin{align*}
+        \dv{a}g(f(q(t) + a\cdot\mbbEins_1))\vert_{a=0} &= d(\inv \circ g\circ f)(q(t))(\mbbEins_1) = d\inv(g(f(q(t))))(d(g\circ f)(q(t)(\mbbEins_1)))\\
+        &= \inv((g(f(q(t))))^2)\cdot d(g\circ f)(q(t))(\mbbEins_1)\\
+        &= \frac{1}{g(f(q(t)))}\cdot d(g\circ f)(q(t))(\mbbEins_1).
+    \end{align*}
+    Erneute Anwendung der Kettenregel auf den zweiten Faktor liefert
+    \begin{align*}
+        d(g\circ f)(q(t))(\mbbEins_1) &= dg(f(q(t)))(df(q(t))(\mbbEins_1)).
+    \end{align*}
+    Es verbleibt noch die Richtungsableitungen der Quadratnorm $g$, sowie $f$ zu berechnen:
+    \begin{itemize}
+        \item Schreibe explizit $g(x)=\left(\sum_{j\in[3]}x_j^2\right)^{1/2}$ für $x\in\R^3$, dann (mit der Richtung $h\in\R^3$ und $q_2$ bezeichnend für das Quadratmonom)
+        \begin{align*}
+            dg(x)(h) &= \dv{a}\left.\left(\sum_{j\in[3]}(x_j + a\cdot h_j)^2\right)^{1/2}\right\vert_{a=0}\\
+            &= \dv{a}\sum_{j\in[3]}(x_j + a\cdot h_j)\right\vert_{a=0}\cdot\frac{1}{2}\cdot\left(\sum_{j\in[3]}x_j^2\right)^{-1/2}\\
+            &=\left(\sum_{j\in[3]}dq_2(x_j)(h_j)\right)\cdot\frac{1}{2}\cdot\frac{1}{g(x)}
+            =\frac{\sum_{j\in[3]}h_j\cdot x_j}{g(x)}.
+        \end{align*}
 
-    $g_i:=\bigl(\dabs{Q_i(t)-a}{2}\bigr)_{a\in\R^3}$, dann ist zunächst
-    \[
-        \dv{a}V(t,a) = G\cdot\sum_{i\in[2]}\dv{a}\frac{m_i\cdot m_S}{g(a)} = G\cdot\sum_{i\in[2]}m_i\cdot m_S\cdot\dv{a}\frac{1}{g_i(a)},
-    \]
+        \item Die erste partielle Ableitung von $f$ ergibt sich als
+        \begin{align*}
+            df(q(t))(\mbbEins_1) &= \dv{s_1}\left.\nbra{\begin{pmatrix}s_1\cdot \sin(s_2)\cdot\cos(s_3) - a\cdot\cos(\Phi_M(t))\\ s_1\cdot\sin(s_2)\cdot\sin(s_3) - b\cdot\sin(\Phi_M(t))\\ 0\end{pmatrix}}_{s\in\R^3}\right\vert_{s_1=q_1^*(t)}\\
+            &= 
+        \end{align*}
+    \end{itemize}
+
     sodaß wir durch Kenntnis der Ableitung von inv auf $\R$, gegeben durch $d$inv$(x)(1) = ($inv$\circ q_2)(x)$ mit $q_2$ als Quadratmonom ferner schreiben können:
     \[
         \dv{a}\frac{1}{g_i(a)} = d(\inv\circ g_i)(a)(1) = (\inv\circ q_2\circ g_i)(a)\cdot dg_i(a)(1) = \frac{1}{g_i(a)^2}\cdot \dv{a}g_i(a).  
