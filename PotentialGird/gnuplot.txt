@@ -1,0 +1,7 @@
+set palette defined (0 "white", 1 "red")
+set cbrange [-0.1: 1]
+set title "{/:Bold Verlauf des Erde-Mond-Potentials.}"
+set xlabel "{/:Bold X}"
+set ylabel "{/:Bold Y}"
+set zlabel "{/:Bold V(X,Y)}"
+splot "PotentialGird/tmp/potential.csv" using 1:2:3 with pm3d
