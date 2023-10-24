@@ -55,4 +55,15 @@
         &= \frac{1}{m_S\cdot q(t)_1^2\cdot\sin(q(t)_2)^2}\cdot p(t)_3.
     \end{align*}
     Die Zusammenfassung bildet dann die nötige Richtungsableitung für die zweite Hamiltonsche Bewegungsgleichung. 
+
+    Wir benötigen hier die Ableitung $\dv{a}T\bigl(t,(a,p(t))\bigr)|_{a = q(t)}$. Wir erhalten für die drei Komponenten nach Legendre Transformation die folgenden Ausdrücke:
+    \begin{align*}
+        \dv{s}T\left.\bigl(t,(q(t) + s\cdot\mbbEins_1,p(t))\bigr)\right|_{s=0} &= \frac{1}{2\cdot m_S}\cdot\dv{a}\left.\biggl(\frac{p(t)_2^2}{a^2} + \frac{p(t)_3^2}{a^2\cdot\sin(q(t)_2)^2}\biggr)\right|_{a = q(t)_1} \\
+        &= \frac{1}{2\cdot m_S}\cdot\nbra{
+            \frac{-2\cdot p(t)_2^2}{q(t)_1^3} + \frac{-2}{q(t)_1^3}\cdot\frac{p(t)_3^2}{\sin(q(t)_2)^2}
+        } \\
+        \dv{s} T\left.\bigl(t,(q(t) + s\cdot\mbbEins_2,p(t))\bigr)\right|_{s=0} &= \frac{1}{2\cdot m_S}\cdot\frac{p(t)_3^2}{q(t)_1^2}\cdot\dv{a}\left.\frac{1}{\sin(a)^2}\right|_{a = q(t)_2} \\ 
+        &= \frac{1}{2\cdot m_S}\cdot\frac{p(t)_3^2}{q(t)_1^2}\cdot\frac{-2\cdot\cos(q(t)_2)}{\sin(q(t)_2)^3}.
+    \end{align*}
+    Mit Blick auf die Definition \eqref{eq:kinE} können wir die dritte Komponente auf Null setzen: $\dv{s}T\left.\bigl(t,(q(t) + s\cdot\mbbEins_3,p(t))\bigr)\right|_{s=0} = 0$.
 \end{document}
