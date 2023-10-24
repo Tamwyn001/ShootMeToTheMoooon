@@ -4,7 +4,7 @@
     Um die Theorie der Numerik auf unser Problem anwenden zu können, müssen wir noch eine \emph{rechte Seite} definieren. Wir finden diese über die \emph{Hamiltonischen Bewegungsgleichungen}, welche durch die Richtungsableitungen in $q(t)$ und $p(t)$ gegeben und in einem Tupel zusammengefasst werden. Hierzu bestimmen wir zunächst
     \begin{align*}
         \dv{a}H(t,(a,p(t))) &= \dv{a}\Biggl(
-                \frac{p(t)^2}{2m_S} + V(t,a)
+                T + V(t,a)
         \Biggr) = \dv{a}V(t,a),\numberthis\label{eq:dHa}\tag{dHa}\\
         \dv{b}H(t,(q(t),b)) &= \dv{b}\Biggl(
                 \frac{b^2}{2m_S} + V(t,q(t))
@@ -13,22 +13,23 @@
     An dieser Stelle müssen wir noch einmal arbeiten, um die Ableitung des Potentials in $q(t)$ zu bestimmen, da es sich um eine Verkettung höheren Grades handelt. Definiere
     \begin{align*}
         f &:= \nbra{\begin{pmatrix}s_1\cdot \sin(s_2)\cdot\cos(s_3) - a\cdot\cos(\Phi_M(t))\\ s_1\cdot\sin(s_2)\cdot\sin(s_3) - b\cdot\sin(\Phi_M(t))\\ 0\end{pmatrix}}_{s\in\R^3},\\
-        g &:= \nbra{\dabs{s}{2}\bigr}_{s\in\R^3},
+        g &:= \nbra{\dabs{s}{2}\bigr}_{(t,s)\in\R\times\R^3},
     \end{align*}
-    sodass $V(t,q(t)) = G\cdot m_1\cdot m_S\cdot q_1^*(t)^{-1} + G\cdot m_2\cdot m_S\cdot g(f(q(t)))^{-1}$. Wir berechnen folgens die partiellen Ableitungen der Potentialfunktion.
+    sodass $V(t,q(t)) = G\cdot m_1\cdot m_S\cdot q_1^*(t)^{-1} + G\cdot m_2\cdot m_S\cdot g(f(t,q(t)))^{-1}$. Wir berechnen folgens die partiellen Ableitungen der Potentialfunktion.
     \begin{align*}
-        \dv{s}V\left.\bigl(t,(q(t) + s\cdot\mbbEins_1)\bigr)\right|_{s=0} &= -G\cdot m_1\cdot m_S\cdot q_1^*(t)^{-2} + G\cdot m_2\cdot m_S\cdot \dv{a}g(f(q(t) + a\cdot\mbbEins_1))^{-1}\vert_{a=0}.
+        \dv{s}V\left.\bigl(t,(q(t) + s\cdot\mbbEins_1)\bigr)\right|_{s=0} &= -G\cdot m_1\cdot m_S\cdot q_1^*(t)^{-2} + G\cdot m_2\cdot m_S\cdot \dv{a}g(f(t,q(t) + a\cdot\mbbEins_1))^{-1}\vert_{a=0}.
     \end{align*}
-    Der zweite Summand berechnet sich mit der Kettenregel:
+    Der zweite Summand berechnet sich mit der Kettenregel. Wir definieren vorab die Abkürzung $\mbbEins_{0,k}:=(0,\mbbEins_k)$ für $k\in[3]$:
     \begin{align*}
-        \dv{a}g(f(q(t) + a\cdot\mbbEins_1))\vert_{a=0} &= d(\inv \circ g\circ f)(q(t))(\mbbEins_1) = d\inv(g(f(q(t))))(d(g\circ f)(q(t)(\mbbEins_1)))\\
-        &= \inv((g(f(q(t))))^2)\cdot d(g\circ f)(q(t))(\mbbEins_1)\\
-        &= \frac{1}{g(f(q(t)))}\cdot d(g\circ f)(q(t))(\mbbEins_1).
+        \dv{a}g(f(q(t) + a\cdot\mbbEins_{0,1}))\vert_{a=0} &= d(\inv \circ g\circ f)(q(t))(\mbbEins_1) = d\inv(g(f(q(t))))(d(g\circ f)(q(t)(\mbbEins_{0,1})))\\
+        &= \inv((g(f(q(t))))^2)\cdot d(g\circ f)(q(t))(\mbbEins_{0,1})\\
+        &= \frac{1}{g(f(q(t)))}\cdot d(g\circ f)(q(t))(\mbbEins_{0,1}).
     \end{align*}
     Erneute Anwendung der Kettenregel auf den zweiten Faktor liefert
-    \begin{align*}
-        d(g\circ f)(q(t))(\mbbEins_1) &= dg(f(q(t)))(df(q(t))(\mbbEins_1)).
-    \end{align*}
+    \begin{align}
+        d(g\circ f)(q(t))(\mbbEins_{0,1}) &= dg(f(q(t)))(df(q(t))(\mbbEins_{0,1})).
+        \label{eq:NumerikHamiltonPotentialZweiteVerkettung}
+    \end{align}
     Es verbleibt noch die Richtungsableitungen der Quadratnorm $g$, sowie $f$ zu berechnen:
     \begin{itemize}
         \item Schreibe explizit $g(x)=\left(\sum_{j\in[3]}x_j^2\right)^{1/2}$ für $x\in\R^3$, dann (mit der Richtung $h\in\R^3$ und $q_2$ bezeichnend für das Quadratmonom)
@@ -41,10 +42,15 @@
 
         \item Die erste partielle Ableitung von $f$ ergibt sich als
         \begin{align*}
-            df(q(t))(\mbbEins_1) &= \dv{s_1}\left.\nbra{\begin{pmatrix}s_1\cdot \sin(s_2)\cdot\cos(s_3) - a\cdot\cos(\Phi_M(t))\\ s_1\cdot\sin(s_2)\cdot\sin(s_3) - b\cdot\sin(\Phi_M(t))\\ 0\end{pmatrix}}_{s\in\R^3}\right\vert_{s_1=q_1^*(t)}\\
-            &= 
+            df(q(t))(\mbbEins_{0,1}) &= \dv{s_1}\left.\nbra{\begin{pmatrix}s_1\cdot \sin(q_2^*(t))\cdot\cos(q_3^*(t)) - a\cdot\cos(\Phi_M(t))\\ s_1\cdot\sin(q_2^*(t))\cdot\sin(q_3^*(t)) - b\cdot\sin(\Phi_M(t))\\ 0\end{pmatrix}}_{s\in\R^3}\right\vert_{s_1=q_1^*(t)}\\
+            &= \begin{pmatrix}\sin(q_2^*(t))\cdot\cos(q_3^*(t)) \\ \sin(q_2^*(t))\cdot\sin(q_3^*(t)) \\ 0\end{pmatrix}
         \end{align*}
     \end{itemize}
+    Rückeinsetzen in \eqref{eq:NumerikHamiltonPotentialZweiteVerkettung} ergibt 
+    \begin{align*}
+        d(g\circ f)(q(t))(\mbbEins_1) &= \frac{q_1^*(t)\cdot \sin(q_2^*(t))\cdot\cos(q_3^*(t)) - a\cdot\cos(\Phi_M(t))}{g(f(q(t)))}\cdot\sin(q_2^*(t))\cdot\cos(q_3^*(t))\\
+        &+ \frac{x_2}{g(x)}\cdot \sin(q_2^*(t))\cdot\sin(q_3^*(t)).
+    \end{align*}
 
     sodaß wir durch Kenntnis der Ableitung von inv auf $\R$, gegeben durch $d$inv$(x)(1) = ($inv$\circ q_2)(x)$ mit $q_2$ als Quadratmonom ferner schreiben können:
     \[
