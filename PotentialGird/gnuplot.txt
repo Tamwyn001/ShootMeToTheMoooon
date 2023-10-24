@@ -1,5 +1,5 @@
-set palette defined (0 "red", 1 "white")
-set cbrange [-4: 0.2]
+set palette defined (0 "purple", 1 "black")
+set cbrange [-2: 0.2]
 set title "{/:Bold Verlauf des Erde-Mond-Potentials.}"
 set xlabel "{/:Bold X}"
 set ylabel "{/:Bold Y}"

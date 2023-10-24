@@ -2,7 +2,7 @@
 #include<math.h>
 #include<iostream>
 
-const int T = 500;	
+const int T = 300;	
 const double sim_size = pow(10,1);	// Gird Definitionsbereich
 const double lenght = 5 * sim_size;	// Gird Definitionsbereich
 const double step = lenght / float(T);	// Gird Definitionsbereich
@@ -14,10 +14,21 @@ const double step = lenght / float(T);	// Gird Definitionsbereich
 /*
 	Definiere die Lösungsstruktur. Wir wollen gleichzeitig zwei Bahnen berechnen, um sie nachher im Newtonverfahren vergleichen zu können. Dazu brauchen wir zwei Wege q, p, dq, dp (auf denen gerechnet wird) und zwei Startwerte S1, S2.
 */
-typedef struct {
+struct Lsng{
 	double q1, q2; // Ort
 	double V;	//Potential
-} Lsng;
+
+	Lsng() {
+		this->q1 = 0.;
+		this->q2 = 0.;
+		this->V = 0.;
+	};
+	Lsng( double q1, double q2, double V) {
+		this->q1 = q1;
+		this->q2 = q2;
+		this->V = V;
+	};
+};
 
 
 /*
@@ -31,10 +42,43 @@ const double rM = 0.1;					// Radius Mond
 const double rE = 0.1;					// Radius Erde
 const R3 locE = R3(0, 0, 0);			// Ort Erdezentrum
 const R3 locM = R3(MEd, 0, 0);			// Ort Mondzentrum
+const double a = MEd;						// Ellipsenparameter a
+const double b = 0.5;					// Ellipsenparameter b
 
-void compute_potential(Lsng*L)
+
+Lsng cart_to_spherical(R3 *location)
 {
-	L->V = -Gravk * (mE / pnorm(2, R3(L->q1+0.001, L->q2+0.001, 0) - locE) + mM / pnorm(2, R3(L->q1, L->q2, 0) - locM));
+	double r = pnorm(2, *location);
+	double phi = atan2(location->y, location->x);
+	return Lsng(r, phi, .0);
+}
+
+
+void spher_to_cart(Lsng *location)
+{
+	Lsng tmp = Lsng(location->q1*cos(location->q2), location->q1*sin(location->q2), location->V);
+	*location = tmp;
+	return;
+}
+
+void compute_potential(Lsng*L, const int i) //i = 0: Cartesisch, i = 1: Spherisch
+{
+	switch (i)
+	{
+		case 0:
+			L->V = -Gravk * (mE / pnorm(2, R3(L->q1+0.001, L->q2+0.001, 0) - locE) 
+			+ mM / pnorm(2, R3(L->q1+0.001, L->q2+0.001, 0) - locM));
+			break;
+
+		case 1:
+			L->V = -Gravk * (mE /pnorm(2, R3(L->q1, 0, 0) - locE)) 
+			+ mM / pnorm(2, R3(L->q1 * sin(L->q2)*1. - a * 1., 0., 0.));
+			break;
+
+		default:
+			break;
+	}
+	return;
 }
 
 int main () {
@@ -44,16 +88,25 @@ int main () {
 
 	// Initialisierung
 
-	Lsng L;
+	Lsng L_cart;
+	Lsng L_sph;
 
 	for (int i = 0; i<T; i++) 
 	{
 		for (int j = 0; j<T; j++) 
 		{
-			L.q1 = (double(i)- double(T)/2)*step;
-			L.q2 = (double(j)- double(T)/2)*step;
-			compute_potential(&L);
-			fprintf(dof, "%f, %f, %f \n",L.q1, L.q2, L.V);
+			L_cart.q1 = (double(i)- double(T)/2)*step;
+			L_cart.q2 = (double(j)- double(T)/2)*step;
+
+			
+
+			R3 coord = R3(L_cart.q1, L_cart.q2, 0);
+			L_sph = cart_to_spherical(&coord);
+
+			compute_potential(&L_sph, 1);
+			compute_potential(&L_cart, 00);
+			spher_to_cart(&L_sph);
+			fprintf(dof, "%f, %f, %f, %f, %f, %f \n", L_cart.q1, L_cart.q2, L_cart.V, L_sph.q1, L_sph.q2, L_sph.V);
 		}
 		fprintf(dof, "\n");
 		
