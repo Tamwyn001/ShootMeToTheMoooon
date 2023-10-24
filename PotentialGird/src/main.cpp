@@ -2,7 +2,7 @@
 #include<math.h>
 #include<iostream>
 
-const int T = 100;	
+const int T = 500;	
 const double sim_size = pow(10,1);	// Gird Definitionsbereich
 const double lenght = 5 * sim_size;	// Gird Definitionsbereich
 const double step = lenght / float(T);	// Gird Definitionsbereich
@@ -34,11 +34,12 @@ const R3 locM = R3(MEd, 0, 0);			// Ort Mondzentrum
 
 void compute_potential(Lsng*L)
 {
-	L->V = Gravk * (mE / pnorm(2, R3(L->q1, L->q2, 0) - locE) + mM / pnorm(2, R3(L->q1, L->q2, 0) - locM));
+	L->V = -Gravk * (mE / pnorm(2, R3(L->q1+0.001, L->q2+0.001, 0) - locE) + mM / pnorm(2, R3(L->q1, L->q2, 0) - locM));
 }
 
 int main () {
 	FILE* dof;
+
 	dof = fopen("../tmp/potential.csv", "w");
 
 	// Initialisierung
