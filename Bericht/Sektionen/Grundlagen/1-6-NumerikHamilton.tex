@@ -45,6 +45,18 @@
             df(q(t))(\mbbEins_{0,1}) &= \dv{s_1}\left.\nbra{\begin{pmatrix}s_1\cdot \sin(q_2^*(t))\cdot\cos(q_3^*(t)) - a\cdot\cos(\Phi_M(t))\\ s_1\cdot\sin(q_2^*(t))\cdot\sin(q_3^*(t)) - b\cdot\sin(\Phi_M(t))\\ 0\end{pmatrix}}_{s\in\R^3}\right\vert_{s_1=q_1^*(t)}\\
             &= \begin{pmatrix}\sin(q_2^*(t))\cdot\cos(q_3^*(t)) \\ \sin(q_2^*(t))\cdot\sin(q_3^*(t)) \\ 0\end{pmatrix}
         \end{align*}
+
+        \item Die zweite partielle Ableitung von $f$ lässt sich schreiben als
+        \begin{align*}
+            df(q(t))(\mbbEins_{0,2}) &= \dv{s_2}\left.\nbra{\begin{pmatrix}s_1\cdot \sin(q_2^*(t))\cdot\cos(q_3^*(t)) - a\cdot\cos(\Phi_M(t))\\ s_1\cdot\sin(q_2^*(t))\cdot\sin(q_3^*(t)) - b\cdot\sin(\Phi_M(t))\\ 0\end{pmatrix}}_{s\in\R^3}\right\vert_{s_2=q_2^*(t)}\\
+            &= \begin{pmatrix}s_1\cos(q_2^*(t))\cdot\cos(q_3^*(t)) \\ s_1\cos(q_2^*(t))\cdot\sin(q_3^*(t)) \\ 0\end{pmatrix}
+        \end{align*}
+        
+        \item Und schließlich die dritte partielle Ableitung von $f$ lautet
+        \begin{align*}
+            df(q(t))(\mbbEins_{0,3}) &= \dv{s_3}\left.\nbra{\begin{pmatrix}s_1\cdot \sin(q_2^*(t))\cdot\cos(q_3^*(t)) - a\cdot\cos(\Phi_M(t))\\ s_1\cdot\sin(q_2^*(t))\cdot\sin(q_3^*(t)) - b\cdot\sin(\Phi_M(t))\\ 0\end{pmatrix}}_{s\in\R^3}\right\vert_{s_3=q_3^*(t)}\\
+            &= \begin{pmatrix}-s_1\sin(q_2^*(t))\cdot\sin(q_3^*(t)) \\ s_1\sin(q_2^*(t))\cdot\cos(q_3^*(t)) \\ 0\end{pmatrix}
+        \end{align*}
     \end{itemize}
     Rückeinsetzen in \eqref{eq:NumerikHamiltonPotentialZweiteVerkettung} ergibt 
     \begin{align*}

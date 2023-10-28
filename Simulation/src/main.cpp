@@ -1,6 +1,8 @@
 #include<stdio.h>
 #include<math.h>
 
+#include "header/moon.hpp"
+
 const int T = 10;			// Rechenzeitintervallbreite
 const int n = 1000;			// Anzahl der Schüsse im Shooting-Verfahren
 
@@ -28,6 +30,7 @@ typedef struct {
 } Lsng;
 
 
+
 /*
  Initialisiere die Systemgleichungen.
 */
@@ -39,8 +42,15 @@ const double mS = 0.01; 				// Masse Schusskörper
 const double rM = 0.1;					// Radius Mond
 const double rE = 0.1;					// Radius Erde
 const R3 locE = R3(0, 0, 0);			// Ort Erdezentrum
-const R3 locM = R3(0, 0, MEd);			// Ort Mondzentrum
-const R3 x1 = locM - R3(0, 0, rM);		// Ziel
+R3 locM = R3(0, 0, MEd);			// Ort Mondzentrum
+R3 x1;		// Ziel
+
+double moonPhase = 0;
+
+void update_target(R3 *target)
+{
+	*target = locM - R3(0, 0, rM);
+}
 
 #include "header/sysDGL.hpp"
 
@@ -49,6 +59,7 @@ const R3 x1 = locM - R3(0, 0, rM);		// Ziel
  Initialisiere das Lösungsverfahren.
 */
 #include "header/shooting.hpp"
+
 
 
 int main () {
@@ -75,10 +86,16 @@ int main () {
 	Lsng L = L0;
 	double cor = 1;
 
-
 	for (int i = 0; i < n; i++) {
+		//updqte target on the moon
+		update_target(&x1);
+
 		shooting(i * dt, &L, &L0, &cor);
 		fprintf(dof, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n", i * dt, L.q1.x, L.q1.y, L.q1.z, L.q2.x, L.q2.y, L.q2.z, L.p1.x, L.p1.y, L.p1.z, L.p2.x, L.p2.y, L.p2.z, cor);
+		
+		//update moon location
+		updateMoon(&locM, &moonPhase);
+		
 
 		// check if solution is close
 		if (cor < tol) {
