@@ -42,8 +42,8 @@ R3 f_2(R3* s, double phase)
 {
     R3 result = R3(0.,0.,0.);
 
-    result.x = 
-    result.y = 
+    result.x = s->x*cos(s->y)*cos(s->z);
+    result.y = s->x*cos(s->y)*sin(s->z);
 
     return result;
 }
@@ -51,38 +51,61 @@ R3 f_3(R3* s, double phase)
 {
     R3 result = R3(0.,0.,0.);
 
-    result.x = 
-    result.y = 
+    result.x = -s->x*sin(s->y)*sin(s->z);
+    result.y = s->x*sin(s->y)*cos(s->z);
 
     return result;
 }
 
 
 //Die Funktion F besitzt zwei komeponenten. Die erste ist die Ortsbeschreibung und die zweite die Geschwindigkeit.
-void F(double t, Lsng* L, double phase) { //(.. , int k) {
+void F(double t, Lsng* L, double phase, int k)
+ {
     Lsng Ls = *L;
+    switch (k)
+    {
+    case 1:
+            //   d/db H:
+        L->dq1.x =  Ls.p1.x * 1/mS;
+        L->dq1.y = Ls.p1.y/(mS*pow(Ls.q1.x, 2));
+        L->dq1.z = Ls.p1.z/(mS*pow(Ls.q1.x, 2)*sin(Ls.q1.y));
+
+        //   d/da H: 
+        double dqelem = (-1.)*mM/pow(pnorm(2, f_s(&Ls.q1, phase)), 3);
+        L->dp1.x = -mE/(pow(Ls.q1.x, 2)) - dqelem * scpr(f_s(&Ls.q1, phase), f_1(&Ls.q1, phase)); 
+        L->dp1.x = dqelem * scpr(f_s(&Ls.q1, phase), f_2(&Ls.q1, phase));
+        L->dp1.z = dqelem * scpr(f_s(&Ls.q1, phase), f_3(&Ls.q1, phase));
+
+
+        L->dp1 = Ls.dp1 *Gravk * mS ;
+
+        L->dp1.x += 1/(2*mS) * (-2)/pow(Ls.p1.x, 3) * ( pow(Ls.p1.y, 2) + pow(Ls.p1.z, 2)/(sin(Ls.q1.y)));
+        L->dp1.y += 1/(2*mS) * pow(Ls.p1.z, 2)/pow(Ls.q1.x, 2) * (-2*cos(Ls.q1.y))/pow(sin(Ls.q1.y), 3); // IST ES WRKL sin^3, unscharfe Bild vom Tafel??
+        L->dp1.z += 0;
+        break;
+    case 2:
+            //   d/db H:
+        L->dq2.x =  Ls.p2.x * 1/mS;
+        L->dq2.y = Ls.p2.y/(mS*pow(Ls.q2.x, 2));
+        L->dq2.z = Ls.p2.z/(mS*pow(Ls.q2.x, 2)*sin(Ls.q2.y));
+
+        //   d/da H: 
+        double dqelem = (-1.)*mM/pow(pnorm(2, f_s(&Ls.q2, phase)), 3);
+        L->dp2.x = -mE/(pow(Ls.q2.x, 2)) - dqelem * scpr(f_s(&Ls.q2, phase), f_1(&Ls.q2, phase));
+        L->dp2.x = dqelem * scpr(f_s(&Ls.q2, phase), f_2(&Ls.q2, phase));
+        L->dp2.z = dqelem * scpr(f_s(&Ls.q2, phase), f_3(&Ls.q2, phase));
+
+
+        L->dp2 = Ls.dp2 *Gravk * mS ;
+
+        L->dp2.x += 1/(2*mS) * (-2)/pow(Ls.p2.x, 3) * ( pow(Ls.p2.y, 2) + pow(Ls.p2.z, 2)/(sin(Ls.q2.y)));
+        L->dp2.y += 1/(2*mS) * pow(Ls.p2.z, 2)/pow(Ls.q2.x, 2) * (-2*cos(Ls.q2.y))/pow(sin(Ls.q2.y), 3); // IST ES WRKL sin^3, unscharfe Bild vom Tafel??
+        L->dp2.z += 0;
+        break;
+    default:
+        break;
+    }
     
-    //   d/db H:
-    L->dq1.x =  Ls.p1.x * 1/mS;
-    L->dq1.y = Ls.p1.y/(mS*pow(Ls.q1.x, 2));
-    L->dq1.z = Ls.p1.z/(mS*pow(Ls.q1.x, 2)*sin(Ls.q1.y));
-
-    //   d/da H: 
-    double dqelem = (-1.)*mM/pow(pnorm(2, f_s(&Ls.q1, phase)), 3);
-    L->dp1.x = -mE/(pow(Ls.q1.x, 2)) - dqelem * scpr(f_s(&Ls.q1, phase), f_1(&Ls.q1, phase)); //TODO zwei komp nach 1 abblteien
-    L->dp1.x = dqelem * scpr(f_s(&Ls.q1, phase), f_2(&Ls.q1, phase));//TODO zwei komp nach 2 abblteien
-    L->dp1.z = dqelem * scpr(f_s(&Ls.q1, phase), f_3(&Ls.q1, phase));//TODO zwei komp nach 3 abblteien
-
-
-    L->dp1 = Ls.dp1 *Gravk * mS ;
-
-    L->dp1.x += 1/(2*mS) * (-2)/pow(Ls.p1.x, 3) * ( pow(Ls.p1.y, 2) + pow(Ls.p1.z, 2)/(sin(Ls.q1.y)));
-    L->dp1.y += 1/(2*mS) * pow(Ls.p1.z, 2)/pow(Ls.q1.x, 2) * (-2*cos(Ls.q1.y))/pow(sin(Ls.q1.y), 3); // IST ES WRKL sin^3, unscharfe Bild vom Tafel??
-    L->dp1.z += 0;
-
-
-    
-
     return;
 
 

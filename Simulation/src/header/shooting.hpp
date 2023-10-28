@@ -68,10 +68,10 @@ void rk4step(double t, Lsng* L, void (*F)(double, Lsng*)) {
 /*
     Definiere das Schießverfahren.
 */
-void shooting(double t, Lsng* L, Lsng* L0, double* c) {
+void shooting(double t, Lsng* L, Lsng* L0, double* c, double moonPhase) {
     // Berechne die Lösung des Anfangswertproblems
     for (int i = 0; i < nt; i++) {
-        F(i * dt, L, 1);
+        F(i * dt, L, moonPhase, 1);
         eulerstep(i * dt, L, 1);
         eulerstep(i * dt, L, 2);
     }
