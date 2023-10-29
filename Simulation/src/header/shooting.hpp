@@ -1,4 +1,3 @@
-#include <string>
 
 double check(Lsng* L, int k) {
     switch (k) {
@@ -21,6 +20,9 @@ void newtonstep(Lsng* L) {
     // Newton Methode um neuen Startwert S1 zu bestimmen (S2 wird zu altem S1)
     L->S1 = x1 - (x1 - x2) / (check(L, 1) - check(L, 2)) * check(L, 1);
     L->S2 = x1;
+
+    std::cout << "S1: " << L->S1.x << ", " << L->S1.y << ", " << L->S1.z << std::endl;
+    std::cout << "S2: " << L->S2.x << ", " << L->S2.y << ", " << L->S2.z << std::endl;
 }
 
 
@@ -70,7 +72,7 @@ void rk4step(double t, Lsng* L, void (*F)(double, Lsng*)) {
 /*
     Definiere das Schießverfahren.
 */
-void shooting(int traj_id, Lsng* L, Lsng* L0, double* c) {
+void shooting(int traj_id, Lsng* L, double* c) {
     //erstelle die i-te trajektorie datei 
     FILE* traj_dof;
     std::string traj_dof_name = "../tmp/trajectory/traj_" + std::to_string(traj_id) + ".csv";
@@ -93,6 +95,8 @@ void shooting(int traj_id, Lsng* L, Lsng* L0, double* c) {
         }
         updateMoon();
     }
+    gnuCommand += ", \"traj_" + std::to_string(traj_id) + ".csv\" u 2:3:4 w l title \"Satellite " + std::to_string(2*traj_id) + "\"";
+    gnuCommand += ", \"traj_" + std::to_string(traj_id) + ".csv\" u 5:6:7 w l title \"Satellite " + std::to_string(2*traj_id + 1) + "\"";
 
     // Berechne die Korrektheit des Endwertes
     *c = fmax(check(L, 1), check(L, 2));
