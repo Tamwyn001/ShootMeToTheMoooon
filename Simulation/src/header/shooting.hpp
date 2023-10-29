@@ -1,3 +1,5 @@
+#include <string>
+
 double check(Lsng* L, int k) {
     switch (k) {
         case 1:
@@ -68,12 +70,21 @@ void rk4step(double t, Lsng* L, void (*F)(double, Lsng*)) {
 /*
     Definiere das Schießverfahren.
 */
-void shooting(double t, Lsng* L, Lsng* L0, double* c, double moonPhase) {
+void shooting(int traj_id, Lsng* L, Lsng* L0, double* c) {
+    //erstelle die i-te trajektorie datei 
+    FILE* traj_dof;
+    std::string traj_dof_name = "../tmp/trajectory/traj_" + std::to_string(traj_id) + ".csv";
+	traj_dof = fopen(traj_dof_name.c_str(), "w");
+
     // Berechne die Lösung des Anfangswertproblems
     for (int i = 0; i < nt; i++) {
-        F(i * dt, L, moonPhase, 1);
+        F(i * dt, L, 1);
+        F(i * dt, L, 2);
         eulerstep(i * dt, L, 1);
         eulerstep(i * dt, L, 2);
+        
+        fprintf(traj_dof, "%f,%f,%f,%f,%f,%f,%f\n", (double)(i * dt), L->q1.x, L->q1.y, L->q1.z, L->q2.x, L->q2.y, L->q2.z);
+
     }
 
     // Berechne die Korrektheit des Endwertes

@@ -6,10 +6,15 @@ struct R3 {
         this->y = y;
         this->z = z;
     };
-
+    R3 () {
+        this->x = 0.0;
+        this->y = 0.0;
+        this->z = 0.0;
+    };
     R3 operator+ (const R3& other) const {
         return R3(this->x + other.x, this->y + other.y, this->z + other.z);
     };
+    
     R3 operator- (const R3& other) const {
         return R3(this->x - other.x, this->y - other.y, this->z - other.z);
     };
