@@ -75,16 +75,23 @@ void shooting(int traj_id, Lsng* L, Lsng* L0, double* c) {
     FILE* traj_dof;
     std::string traj_dof_name = "../tmp/trajectory/traj_" + std::to_string(traj_id) + ".csv";
 	traj_dof = fopen(traj_dof_name.c_str(), "w");
-
+    Lsng LPrint;
     // Berechne die Lösung des Anfangswertproblems
     for (int i = 0; i < nt; i++) {
         F(i * dt, L, 1);
         F(i * dt, L, 2);
         eulerstep(i * dt, L, 1);
         eulerstep(i * dt, L, 2);
-        
-        fprintf(traj_dof, "%f,%f,%f,%f,%f,%f,%f\n", (double)(i * dt), L->q1.x, L->q1.y, L->q1.z, L->q2.x, L->q2.y, L->q2.z);
 
+        //std::cout<<"L.q1: "<<L->q1.x<<", "<<L->q1.y<<", "<<L->q1.z<<std::endl;
+        LPrint = L->trsf_cartesian_copy();
+
+        if (i%10000 == 0)
+        {
+            fprintf(traj_dof, "%f, %f, %f, %f, %f, %f, %f\n", (double)(i * dt), LPrint.q1.x, LPrint.q1.y, LPrint.q1.z, LPrint.q2.x, LPrint.q2.y, LPrint.q2.z);
+            fprintf(dof_moon, "%f, %f, %f\n", locM.x, locM.y, locM.z);
+        }
+        updateMoon();
     }
 
     // Berechne die Korrektheit des Endwertes

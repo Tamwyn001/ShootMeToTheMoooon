@@ -7,6 +7,7 @@
 # define M_PI           3.14159265358979323846  /* pi */
 
 #include "header/R3.hpp"
+#include "header/coordinate.hpp"
 #include "header/simulation.hpp"
 #include "header/sysDGL.hpp"
 #include "header/shooting.hpp"
@@ -14,8 +15,10 @@
 
 
 int main () {
-	FILE* dof;
-	dof = fopen("../tmp/moon.csv", "w");
+
+	dof = fopen("../tmp/end.csv", "w");
+	dof_earth = fopen("../tmp/earth.csv", "w");
+	dof_moon = fopen("../tmp/moon.csv", "w");
 	/*
 		Verfahrensinitialisierung:
 			L ist Lösung auf der gerechnet wird
@@ -25,8 +28,8 @@ int main () {
 	Lsng L0 = {
 		R3(0.0, 0.0, rE),	// Startwert q1
 		R3(0.0, 0.0, -rE), 	// Startwert q2
-		R3(0.0, 0.0, 0.0),	// Startwert p1
-		R3(0.0, 0.0, 0.0),	// Startwert p2
+		R3(0.0, 0.0, 1.0),	// Startwert p1
+		R3(0.0, 1.0, 1.0),	// Startwert p2
 		R3(0.0, 0.0, 0.0), 	// Startwert dq1
 		R3(0.0, 0.0, 0.0), 	// Startwert dq2
 		R3(0.0, 0.0, 0.0), 	// Startwert dp1
@@ -37,16 +40,24 @@ int main () {
 	Lsng L = L0;
 	double cor = 1.0;
 
-	for (int i = 0; i < n; i++) {
+	//transform to spherical coordinates to solve the problem in sperhcial coord
+	L.add_inf_offset();
+	L.trsf_spherical();
+	//std::cout<<"L.q1: "<<L.q1.x<<", "<<L.q1.y<<", "<<L.q1.z<<std::endl;
+
+	fprintf(dof_earth, "%f, %f, %f", locE.x, locE.y, locE.z);
+
+
+	for (int i = 0; i < 1; i++) {
 		//std::cout<<"Shooting "<<i<<std::endl;
 		//updqte target on the moon
 		update_target();
 
 		shooting(i, &L, &L0, &cor);
-		fprintf(dof, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n", (double)(i * dt), L.q1.x, L.q1.y, L.q1.z, L.q2.x, L.q2.y, L.q2.z, L.p1.x, L.p1.y, L.p1.z, L.p2.x, L.p2.y, L.p2.z, cor);
+		fprintf(dof, "%f, %f, %f, %f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n", (double)(i * dt), L.q1.x, L.q1.y, L.q1.z, L.q2.x, L.q2.y, L.q2.z, L.p1.x, L.p1.y, L.p1.z, L.p2.x, L.p2.y, L.p2.z, cor);
 		
 		//update moon location
-		updateMoon();
+		
 		
 
 		// check if solution is close
@@ -58,5 +69,7 @@ int main () {
 	}
 	
 	fclose(dof);
+	fclose(dof_earth);
+	fclose(dof_moon);
 	return 0;
 }

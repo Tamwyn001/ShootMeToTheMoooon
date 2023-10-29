@@ -65,11 +65,13 @@ void F(double t, Lsng* L, int k)
     {
         case 1:
         {
-                //   d/db H:
+            //std::cout<<"q1: "<<Ls.q1.x<<", "<<Ls.q1.y<<", "<<Ls.q1.z<<std::endl;
+            //   d/db H:
             L->dq1.x = Ls.p1.x * 1/mS;
             L->dq1.y = Ls.p1.y/(mS*pow(Ls.q1.x, 2));
             L->dq1.z = Ls.p1.z/(mS*pow(Ls.q1.x, 2)*sin(Ls.q1.y));
-            std::cout<<"dq1: "<<L->dq1.x<<", "<<L->dq1.y<<", "<<L->dq1.z<<std::endl;
+
+            //std::cout<<"dq1: "<<L->dq1.x<<", "<<L->dq1.y<<", "<<L->dq1.z<<std::endl;
 
             //   d/da H: 
             const double dqelem1 = (-1.)*mM/pow(pnorm(2, f_s(&Ls.q1)), 3);
