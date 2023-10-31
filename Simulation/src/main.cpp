@@ -77,7 +77,7 @@ int main () {
 	}
 	FILE* gnu = fopen("../gnuplot.txt", "w");
 	fprintf(gnu, "cd 'C:\\Users\\Tamwyn\\Documents\\Physik\\ShootMeToTheMoooon\\Simulation\\tmp\\trajectory\n");
-	fprintf(gnu, "set zrange[-10e10:10e11]\n");
+	fprintf(gnu, "set zrange[-10e10:10e10]\n");
 	fprintf(gnu, "%s\n", gnuCommand.c_str());
 
 	fclose(gnu);

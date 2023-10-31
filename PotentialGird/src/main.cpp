@@ -2,9 +2,9 @@
 #include<math.h>
 #include<iostream>
 
-const int T = 300;	
-const double sim_size = pow(10,1);	// Gird Definitionsbereich
-const double lenght = 5 * sim_size;	// Gird Definitionsbereich
+const int T = 100;	
+const double sim_size = pow(10,9);	// Gird Definitionsbereich
+const double lenght = 10 * sim_size;	// Gird Definitionsbereich
 const double step = lenght / float(T);	// Gird Definitionsbereich
 /*
 	Definiere die dreidimensionale Struktur des Problems. Führe hierzu R3 ein.
@@ -34,17 +34,18 @@ struct Lsng{
 /*
  Initialisiere die Systemgleichungen.
 */
-const double Gravk = 1; 				// Gravitationskonstante
-const double MEd = 2 * sim_size; 		// Abstand Erde-Mond
-const double mE = 1; 					// Masse Erde
-const double mM = 0.1; 					// Masse Mond
-const double rM = 0.1;					// Radius Mond
-const double rE = 0.1;					// Radius Erde
-const R3 locE = R3(0, 0, 0);			// Ort Erdezentrum
-const R3 locM = R3(MEd, 0, 0);			// Ort Mondzentrum
-const double a = MEd;						// Ellipsenparameter a
-const double b = 0.5;					// Ellipsenparameter b
+const double Gravk = 6.674 * pow(10,-11); 	// Gravitationskonstante
+const double MEd = 3.0 * pow(10,9); 		// Abstand Erde-Mond
+const double mE = 1.0 * pow(10,24); 		// Masse Erde
+const double mM = 0.012 * mE; 				// Masse Mond
+const double mS = 1000.0; 					// Masse Schusskörper
+const double rM = 1700.0;					// Radius Mond
+const double rE = 6400.0;					// Radius Erde
+const R3 locE(0.0, 0.0, 0.0);				// Ort Erdezentrum
+R3 locM(MEd, 0.0, 0.0);						// Ort Mondzentrum
 
+double a= MEd;
+double b= 0.9 * a;
 
 Lsng cart_to_spherical(R3 *location)
 {

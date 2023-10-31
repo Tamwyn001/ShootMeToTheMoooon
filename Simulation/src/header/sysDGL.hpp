@@ -67,9 +67,9 @@ void F(double t, Lsng* L, int k)
         {
             //std::cout<<"q1: "<<Ls.q1.x<<", "<<Ls.q1.y<<", "<<Ls.q1.z<<std::endl;
             //   d/db H:
-            L->dq1.x = Ls.p1.x * 1/mS;
-            L->dq1.y = Ls.p1.y/(mS*pow(Ls.q1.x, 2));
-            L->dq1.z = Ls.p1.z/(mS*pow(Ls.q1.x, 2)*sin(Ls.q1.y));
+            L->dq1.x = (-1) * Ls.p1.x * 1/mS;
+            L->dq1.y = (-1) * Ls.p1.y/(mS*pow(Ls.q1.x, 2));
+            L->dq1.z = (-1) * Ls.p1.z/(mS*pow(Ls.q1.x, 2)*sin(Ls.q1.y));
 
             //std::cout<<"dq1: "<<L->dq1.x<<", "<<L->dq1.y<<", "<<L->dq1.z<<std::endl;
 
@@ -90,9 +90,9 @@ void F(double t, Lsng* L, int k)
         case 2:
         {
                 //   d/db H:
-            L->dq2.x =  Ls.p2.x * 1/mS;
-            L->dq2.y = Ls.p2.y/(mS*pow(Ls.q2.x, 2));
-            L->dq2.z = Ls.p2.z/(mS*pow(Ls.q2.x, 2)*sin(Ls.q2.y));
+            L->dq2.x = (-1) * Ls.p2.x * 1/mS;
+            L->dq2.y = (-1) * Ls.p2.y/(mS*pow(Ls.q2.x, 2));
+            L->dq2.z = (-1) * Ls.p2.z/(mS*pow(Ls.q2.x, 2)*sin(Ls.q2.y));
 
             //   d/da H: 
             const double dqelem2 = (-1.)*mM/pow(pnorm(2, f_s(&Ls.q2)), 3);
@@ -111,19 +111,4 @@ void F(double t, Lsng* L, int k)
         default:
             break;
     }
-    
-    return;
-
-    // switch (k) {
-    //     case 1:
-    //         L->dp1 = (L->p1) * (-1) / mS;
-    //         L->dq1 = dVsum(k, L) * Gravk * mS; // ......... d/dq V(t, q);
-    //         break;
-    //     case 2:
-    //         L->dp2 = (L->p2) * (-1) / mS;
-    //         L->dq2 = dVsum(k, L) * Gravk * mS; // ......... d/dq V(t, q);
-    //         break;
-    //     default:
-    //         break;
-    // }
 }

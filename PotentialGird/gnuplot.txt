@@ -1,8 +1,11 @@
+cd 'C:\Users\Tamwyn\Documents\Physik\ShootMeToTheMoooon\PotentialGird\tmp'
 set palette defined (0 "purple", 1 "black")
-set cbrange [-2: 0.2]
+set cbrange [-100000: 0.2]
 set title "{/:Bold Verlauf des Erde-Mond-Potentials.}"
 set xlabel "{/:Bold X}"
 set ylabel "{/:Bold Y}"
 set zlabel "{/:Bold V(X,Y)}"
-set zrange [-3: 0.1]
-splot "PotentialGird/tmp/potential.csv" using 1:2:3 with pm3d
+set zrange [-10e5: 0.1]
+set xrange[-10e10:10e10]
+set yrange[-10e10:10e10]
+splot "potential.csv" using 1:2:3 with pm3d

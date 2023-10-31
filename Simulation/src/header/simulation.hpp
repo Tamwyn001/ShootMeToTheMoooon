@@ -131,7 +131,6 @@ void updateMoon()
     locM.x = moonRadA*cos(moonPhase);
     locM.y = moonRadB*sin(moonPhase);
     locM.z = 0.0;
-    return;
 }
 void update_target()
 {

@@ -95,8 +95,8 @@ void shooting(int traj_id, Lsng* L, double* c) {
         }
         updateMoon();
     }
-    gnuCommand += ", \"traj_" + std::to_string(traj_id) + ".csv\" u 2:3:4 w l title \"Satellite " + std::to_string(2*traj_id) + "\"";
-    gnuCommand += ", \"traj_" + std::to_string(traj_id) + ".csv\" u 5:6:7 w l title \"Satellite " + std::to_string(2*traj_id + 1) + "\"";
+    gnuCommand += ", \"traj_" + std::to_string(traj_id) + ".csv\" u 2:3:4 w l linetype "+ std::to_string(traj_id) +" title \"Satellite " + std::to_string(2*traj_id) + "\"";
+    gnuCommand += ", \"traj_" + std::to_string(traj_id) + ".csv\" u 5:6:7 w l linetype "+ std::to_string(traj_id) +" title \"Satellite " + std::to_string(2*traj_id + 1) + "\"";
 
     // Berechne die Korrektheit des Endwertes
     *c = fmax(check(L, 1), check(L, 2));
