@@ -1,0 +1,40 @@
+\documentclass{subfiles}
+
+\begin{document}
+    Zunächst geben wir die Orbitalparameter des Systems. Die Werten stammen aus Wikipedia und wurden für die Simulation gerundet.
+    \begin{table}[h]
+        \centering
+        \begin{tabular}[h]{|c|c|}\hline
+            Masse & Werte \\\hline\hline
+            Erde $m_E$ & $\num{e24}\SI{}{\kilo\gram}$ \\\hline
+            Mond & $0.012\cdot m_E$ \\\hline
+            Satelliten & $1000\SI{}{\kilo\gram}$ \\\hline
+        \end{tabular}
+        \caption{Masse der Körper.}
+    \end{table}
+    \begin{table}[h]
+        \centering
+        \begin{tabular}[h]{|c|c|}\hline
+            Radius & Werte \\\hline\hline
+            Erde $r_E$ & $6400\SI{}{\kilo\meter}$ \\\hline
+            Mond $r_M$ & $1700\SI{}{\kilo\meter}$ \\\hline
+        \end{tabular}
+        \caption{Radien der Körper.}
+    \end{table}
+    \begin{table}[h]
+        \centering
+        \begin{tabular}[h]{|c|c|}\hline
+            Ort & Werte \\\hline\hline
+            Erde $\vec{r}_E$ & $\begin{pmatrix}
+                0\\0\\0
+            \end{pmatrix}$ \\\hline
+            Mond $\vec{r}_M$ & $\begin{pmatrix}
+                a \cos(\Phi)\\b \sin(\Phi)\\0
+            \end{pmatrix}$  \\
+            &$a = \num{3e9}\SI{}{\meter}$\\
+            &$b = 0.9 \cdot  a$\\
+            &$\Phi = \frac{0.0000001\SI{}{\degree}}{10 \SI{}{\second}} = \num{e-8}\SI{}{degree\per\second}$ \\\hline
+        \end{tabular}
+        \caption{Ortsvektoren der Körper.}
+    \end{table}
+\end{document}
